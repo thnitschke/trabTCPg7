@@ -1,10 +1,13 @@
 package ArchitectureModel;
 
-public class UIAction {
-	
+public class UIAction
+{
+
 	private RestaurantInterface interfaces;
 	private RestaurantOperationService operationService;
 
-public void execute() {}
+	public void execute ()
+	{
+	}
 
 }

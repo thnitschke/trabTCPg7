@@ -1,17 +1,18 @@
 package domainModel;
 
-import java.util.Map;
+import java.util.HashMap;
 
 public class Receita
 {
-	private Map<Ingrediente, Double> ingredientes;
+	private HashMap< Ingrediente, Double > ingredientes;
 	private String instrucoes;
-	
-	public Map<Ingrediente, Double> getIngredientes()
+
+	public HashMap< Ingrediente, Double > getIngredientes ()
 	{
 		return ingredientes;
 	}
-	public String getInstrucoes()
+
+	public String getInstrucoes ()
 	{
 		return instrucoes;
 	}
