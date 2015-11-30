@@ -4,9 +4,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * (IMPL) Classe que guarda todas as informações relacionadas a um turno
+ * específico, como os pedidos de cada mesa, o dinheiro obtido por cada
+ * funcionário, a distribuição de garçom por mesa, etc.
+ * Mantém uma lista de todos os pedidos feitos no turno, sem deletar pedidos
+ * que foram completos.
  * 
  * @author thnitschke
- *
+ * @version 1.0
+ * @param custo
+ * 	Custo (gastos) parcial (ou total quando turno estiver fechado) do Turno.
+ * @param lucro
+ * 	Lucro parcial (ou total quando turno estiver fechado) do Turno.
+ * @param garcomSetor
+ * 	Mapa relacionando cada Garcom com o Setor à que foi associado neste
+ * Turno.
+ * @param, pedidos
+ * 	Lista de todos Pedidos do Turno.
+ * @param gorjetas
+ * 	Mapa relacionando Funcionarios com suas gorjetas.
  */
 public class Turno
 {
@@ -46,11 +62,28 @@ public class Turno
 		;
 	}
 
+	/**
+	 * Retorna uma lista com os garçons deste turno.
+	 * 
+	 * @return Lista com Garçons pertencentes a este Turno.
+	 */
 	public ArrayList< Garcom > getGarcons ()
 	{
-		return null;
-	}
+		ArrayList< Garcom > listaGarcons = new ArrayList< Garcom > (
+				garcomSetor.size ());
+		listaGarcons.addAll (garcomSetor.keySet ());
 
+		return listaGarcons;
+	}
+	
+	/**
+	 * 
+	 * @param mapSetorGarcons
+	 * 	OBS: Parâmetros não fazem sentido. MODIFICAR.
+	 * 	OBS2: Não há como acessar Database para resgatar todos os Garcons
+	 * 	existentes. Considerar a implementação do padrão de design Singleton
+	 * 	para a classe Database.
+	 */
 	public void setGarconsSetor (
 			HashMap< ArrayList< Garcom >, Setor > mapSetorGarcons)
 	{

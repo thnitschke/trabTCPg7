@@ -15,8 +15,12 @@ import domainModel.Turno;
  * da despensa atual e outras informações estáveis do restaurante, como lista de
  * funcionários, cardápio e mesas.
  * 
- * @author Rodrigo Okido (trabTCPg7)
+ * @author Rodrigo Okido (trabTCPg7), thnitschke
  * @version 1.0
+ * 
+ * OBS: Provavelmente precisa ser mudada. Uma Base de Dados só pode em teoria
+ * ter uma instância. Para garantir que isso aconteça e que haja um modo de acessar
+ * a classe globalmente, pode-se implentá-la com o padrão de design chamado "Singleton".
  */
 public class Database
 {
