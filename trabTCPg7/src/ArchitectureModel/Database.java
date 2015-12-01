@@ -16,21 +16,60 @@ import domainModel.Turno;
  * funcionários, cardápio e mesas.
  * 
  * @author Rodrigo Okido (trabTCPg7), thnitschke
- * @version 1.0
+ * @version 1.1
  * 
- * OBS: Provavelmente precisa ser mudada. Uma Base de Dados só pode em teoria
- * ter uma instância. Para garantir que isso aconteça e que haja um modo de acessar
- * a classe globalmente, pode-se implentá-la com o padrão de design chamado "Singleton".
+ * MODIF: Uma Base de Dados só pode em teoria ter uma instância. Para garantir
+ * que isso aconteça e que haja um modo de acessar a classe globalmente, foi
+ *  implentada seguindo o padrão de design chamado "Singleton".
  */
 public class Database
 {
-
 	private ArrayList< Turno > listaTurnos;
 	private ArrayList< Funcionario > listaFuncionarios;
 	private ArrayList< Item > cardapio;
 	private ArrayList< Setor > listaSetores;
 	private ArrayList< Mesa > listaMesas; // NEW
 	private HashMap< Ingrediente, Double > despensa;
+
+	/**
+	 * Cria atributo estático que instancia objeto Database.
+	 * 
+	 * @author thnitschke
+	 * @category Objeto Database estático.
+	 */
+	private static Database instanciaUnica = null;
+
+	/**
+	 * Inicializa-se a Database, pergutando
+	 * Faz-se o construtor privado para que a classe não possa ser instanciada
+	 * fora dela mesma.
+	 * 
+	 * @author thnitschke
+	 * @version 1.0
+	 * @category Objeto Database estático.
+	 */
+	private Database ()
+	{
+		; // (IMPL)
+	}
+
+	/**
+	 * Se for a primeira chamada a este método, cria a única instância de 
+	 * Database chamando o seu Construtor e armazenando em instanciaUnica
+	 * Sempre retorna o único objeto Database existente.
+	 * 
+	 * @author thnitschke
+	 * @version 1.0
+	 * @return Único objeto Database.
+	 */
+	public static Database getInstanciaUnica ()
+	{
+		if (instanciaUnica == null)
+		{
+			instanciaUnica = new Database ();
+		}
+		return instanciaUnica;
+	}
 
 	public boolean hasTurnoAtivo ()
 	{
@@ -130,5 +169,4 @@ public class Database
 	{
 		return null;
 	}
-
 }

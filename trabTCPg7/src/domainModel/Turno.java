@@ -32,6 +32,15 @@ public class Turno
 	private ArrayList< Pedido > pedidos;
 	private HashMap< Funcionario, Double > gorjetas;
 
+	public Turno() 
+	{
+		custo = 0;
+		lucro = 0;
+		garcomSetor = new HashMap< Garcom, Setor > ();
+		pedidos = new ArrayList< Pedido > ();
+		gorjetas = new HashMap< Funcionario, Double > ();
+	}
+	
 	public void addPedido (Pedido pedido)
 	{
 		;
@@ -65,6 +74,7 @@ public class Turno
 	/**
 	 * Retorna uma lista com os garçons deste turno.
 	 * 
+	 * @author thnitschke
 	 * @return Lista com Garçons pertencentes a este Turno.
 	 */
 	public ArrayList< Garcom > getGarcons ()
