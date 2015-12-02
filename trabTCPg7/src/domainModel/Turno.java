@@ -32,6 +32,11 @@ public class Turno
 	private ArrayList< Pedido > pedidos;
 	private HashMap< Funcionario, Double > gorjetas;
 
+	/**
+	 * Construtor da classe Turno.
+	 * 
+	 * @author thnitschke
+	 */
 	public Turno() 
 	{
 		custo = 0;
@@ -40,35 +45,79 @@ public class Turno
 		pedidos = new ArrayList< Pedido > ();
 		gorjetas = new HashMap< Funcionario, Double > ();
 	}
-	
+
+	/**
+	 * Insere o objeto Pedido passado como argumento na Lista de Pedidos
+	 * pertencentes a este Turno.
+	 * 
+	 * @author thnitschke
+	 */	
 	public void addPedido (Pedido pedido)
 	{
-		;
+		pedidos.add (pedido);
 	}
 
+	/**
+	 * Retorna lista de todos Pedidos pertencentes a este Turno.
+	 * 
+	 * @author thnitschke
+	 * @return Lista de todos Pedidos.
+	 */
 	public ArrayList< Pedido > getPedidos ()
 	{
 		return pedidos;
 	}
 
+	/**
+	 * Adiciona custo ao total de custos.
+	 * 
+	 * @author thnitschke
+	 */
 	public void addCusto (double custo)
 	{
-		;
+		this.custo += custo;
 	}
 
+	/**
+	 * Adiciona lucro ao total de lucros.
+	 * 
+	 * @author thnitschke
+	 */
 	public void addLucro (double lucro)
 	{
-		;
+		this.lucro += lucro;
 	}
 
+	/**
+	 * Retorna objeto Setor ao qual este garçom está designado neste Turno.
+	 * 
+	 * @author thnitschke
+	 * @return Objeto Setor.
+	 */
 	public Setor getSetor (Garcom garcom)
 	{
-		return null;
+		return garcomSetor.get (garcom);
 	}
-
+	
+	/**
+	 * Adiciona gorjeta a um objeto Funcionario. Se este Funcionario não
+	 * houver recebido alguma gorjeta anteriormente, adiciona-se o mesmo
+	 * ao Map de gorjetas, senão, inicializa-se o valor Double com o valor da
+	 * gorjeta inicial, e então adiciona-se o Funcionario ao Map.
+	 * 
+	 * @author thnitschke
+	 */
 	public void addGorjeta (Funcionario funcionario, double valor)
 	{
-		;
+		if (gorjetas.containsKey (funcionario))
+		{
+			double valorAnterior = gorjetas.get (funcionario);
+			gorjetas.put (funcionario, Double.valueOf (valorAnterior + valor));
+		}
+		else
+		{
+			gorjetas.put (funcionario, new Double (valor));
+		}
 	}
 
 	/**
@@ -87,44 +136,84 @@ public class Turno
 	}
 	
 	/**
+	 * Solicita ao turno que defina os garçons para cada setor a partir de
+	 * um dado mapa de garçons e setor.
 	 * 
-	 * @param mapSetorGarcons
-	 * 	OBS: Parâmetros não fazem sentido. MODIFICAR.
-	 * 	OBS2: Não há como acessar Database para resgatar todos os Garcons
-	 * 	existentes. Considerar a implementação do padrão de design Singleton
-	 * 	para a classe Database.
+	 * @author thnitschke
+	 * @version 1.1
+	 * @param disposicao
 	 */
-	public void setGarconsSetor (
-			HashMap< ArrayList< Garcom >, Setor > mapSetorGarcons)
+	public void setGarconsSetor (HashMap< Garcom, Setor > disposicao)
 	{
-		;
+		garcomSetor.putAll (disposicao);
 	}
 
-	public double getSomaLucro ()
+	/**
+	 * @author thnitschke
+	 * @return Lucro Total.
+	 */
+	public double getSomaLucros ()
 	{
 		return custo;
 	}
-
+	
+	/**
+	 * @author thnitschke
+	 * @return Custo Total.
+	 */
 	public double getSomaCustos ()
 	{
 		return custo;
 	}
 
+	/**
+	 * OBS: Não está definido na Documentação do Grupo.
+	 * Provavelmente altera o estado de todos itens do Pedido passado como
+	 * parâmetro para finalizados (Estado.PRONTO).
+	 * 
+	 * @author thnitschke
+	 * @param pedido
+	 */
 	public void alterarEstadoItensFinalizado (Pedido pedido)
 	{
 		;
 	}
 
+	/**
+	 * OBS: Não está definido na Documentação do Grupo.
+	 * Provavelmente checa se todos os itens do Pedido estão finalizados.
+	 * 
+	 * @author thnitschke
+	 * @param pedido
+	 * @return True se todos estão finalizados, senão False.
+	 */
 	public boolean todosItensFinalizados (Pedido pedido)
 	{
 		return false;
 	}
 
+	/**
+	 * OBS: Não está definido na Documentação do Grupo.
+	 * Provavelmente muda o estado do Pedido passado como parâmetro para
+	 * finalizado..
+	 * 
+	 * @author thnitschke
+	 * @param pedido
+	 */
 	public void finalizarPedido (Pedido pedido)
 	{
 		;
 	}
 
+	/**
+	 * Essa função, executada pelo gerente, devolve um mapa contendo um
+	 * funcionário mais o seu respectivo salário (salário + gorjetas ganhas
+	 * em seu turno).
+	 * 
+	 * @author thnitschke
+	 * @return Map com o salário final de todos funcionários participantes
+	 * do Turno.
+	 */
 	public HashMap< Funcionario, Double > getFolhaPgto ()
 	{
 		return gorjetas;
