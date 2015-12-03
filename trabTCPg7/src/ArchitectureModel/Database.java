@@ -3,7 +3,12 @@ package ArchitectureModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import domainModel.Atendente;
+import domainModel.AuxiliarCozinha;
+import domainModel.Cozinheiro;
 import domainModel.Funcionario;
+import domainModel.Garcom;
+import domainModel.Gerente;
 import domainModel.Ingrediente;
 import domainModel.Item;
 import domainModel.Mesa;
@@ -50,9 +55,13 @@ public class Database
 	 */
 	private Database ()
 	{
-		; // (IMPL)
+		listaFuncionarios = new ArrayList<>();
+		listaSetores = new ArrayList<>();
+		loadRestaurantData();
 	}
-
+	
+	
+	
 	/**
 	 * Se for a primeira chamada a este método, cria a única instância de 
 	 * Database chamando o seu Construtor e armazenando em instanciaUnica
@@ -168,5 +177,125 @@ public class Database
 	public ArrayList< Ingrediente > getFaltaEstoque ()
 	{
 		return null;
+	}
+	
+	
+	/**
+	 * INICIALIZA OS DADOS DO RESTAURANTE TODO.
+	 */
+	public void loadRestaurantData(){
+		
+		//INICIALIZANDO FUNCIONARIOS DO RESTAURANTE
+		Funcionario gr1 = new Gerente("GR000");
+		listaFuncionarios.add(gr1);
+		Funcionario at1 = new Atendente("AT00");
+		listaFuncionarios.add(at1);
+		Funcionario aa1 = new AuxiliarCozinha("AC000");
+		listaFuncionarios.add(aa1);
+		Funcionario co1 = new Cozinheiro("C000");
+		listaFuncionarios.add(co1);
+		Funcionario g1 = new Garcom("G000");
+		listaFuncionarios.add(g1);
+		Funcionario g2 = new Garcom("G001");
+		listaFuncionarios.add(g2);
+		Funcionario g3 = new Garcom("G002");
+		listaFuncionarios.add(g3);
+		
+		
+		//INCIALIZANDO SETORES DO RESTAURANTE
+		Setor se1 = new Setor("Azul");
+		listaSetores.add(se1);
+		Setor se2 = new Setor("Amarelo");
+		listaSetores.add(se2);
+		Setor se3 = new Setor("Vermelho");
+		listaSetores.add(se3);
+		Setor se4 = new Setor("Verde");
+		listaSetores.add(se4);
+		Setor se5 = new Setor("Rosa");
+		listaSetores.add(se5);
+		
+		
+		//INICIALIZANDO MESAS E ADICIONANDO CADA MESA 
+		//NA LISTA DE SETOR CORRESPONDENTE
+		Mesa m1s1 = new Mesa(se1, 5);
+		se1.getMesas().add(m1s1);
+		Mesa m2s1 = new Mesa(se1, 4);
+		se1.getMesas().add(m2s1);
+		Mesa m3s1 = new Mesa(se1, 4);
+		se1.getMesas().add(m3s1);
+		Mesa m4s1 = new Mesa(se1, 2);
+		se1.getMesas().add(m4s1);
+		Mesa m5s1 = new Mesa(se1, 2);
+		se1.getMesas().add(m5s1);
+		Mesa m6s1 = new Mesa(se1, 5);
+		se1.getMesas().add(m6s1);
+		
+		
+		Mesa m1s2 = new Mesa(se2, 3);
+		se2.getMesas().add(m1s2);
+		Mesa m2s2 = new Mesa(se2, 2);
+		se2.getMesas().add(m2s2);
+		Mesa m3s2 = new Mesa(se2, 2);
+		se2.getMesas().add(m3s2);
+		Mesa m4s2 = new Mesa(se2, 2);
+		se2.getMesas().add(m4s2);
+
+		
+		Mesa m1s3 = new Mesa(se3, 8);
+		se3.getMesas().add(m1s3);
+		Mesa m2s3 = new Mesa(se3, 4);
+		se3.getMesas().add(m2s3);
+		Mesa m3s3 = new Mesa(se3, 4);
+		se3.getMesas().add(m3s3);
+		Mesa m4s3 = new Mesa(se3, 4);
+		se3.getMesas().add(m4s3);
+		Mesa m5s3 = new Mesa(se3, 4);
+		se3.getMesas().add(m5s3);
+		Mesa m6s3 = new Mesa(se3, 6);
+		se3.getMesas().add(m6s3);
+		Mesa m7s3 = new Mesa(se3, 6);
+		se3.getMesas().add(m7s3);
+		Mesa m8s3 = new Mesa(se3, 2);
+		se3.getMesas().add(m8s3);
+		Mesa m9s3 = new Mesa(se3, 2);
+		se3.getMesas().add(m9s3);
+
+		
+		Mesa m1s4 = new Mesa(se4, 10);
+		se4.getMesas().add(m1s4);
+		Mesa m2s4 = new Mesa(se4, 3);
+		se4.getMesas().add(m2s4);
+		Mesa m3s4 = new Mesa(se4, 3);
+		se4.getMesas().add(m3s4);
+		Mesa m4s4 = new Mesa(se4, 3);
+		se4.getMesas().add(m4s4);
+		Mesa m5s4 = new Mesa(se4, 4);
+		se4.getMesas().add(m5s4);
+		Mesa m6s4 = new Mesa(se4, 4);
+		se4.getMesas().add(m6s4);
+		Mesa m7s4 = new Mesa(se4, 5);
+		se4.getMesas().add(m7s4);
+		Mesa m8s4 = new Mesa(se4, 5);
+		se4.getMesas().add(m8s4);
+		Mesa m9s4 = new Mesa(se4, 5);
+		se4.getMesas().add(m9s4);
+		Mesa m10s4 = new Mesa(se4, 6);
+		se4.getMesas().add(m10s4);
+		Mesa m11s4 = new Mesa(se4, 6);
+		se4.getMesas().add(m11s4);
+		
+		Mesa m1s5 = new Mesa(se5, 5);
+		se5.getMesas().add(m1s5);
+		Mesa m2s5 = new Mesa(se5, 3);
+		se5.getMesas().add(m2s5);
+		Mesa m3s5 = new Mesa(se5, 3);
+		se5.getMesas().add(m3s5);
+		Mesa m4s5 = new Mesa(se5, 3);
+		se5.getMesas().add(m4s5);
+		Mesa m5s5 = new Mesa(se5, 3);
+		se5.getMesas().add(m5s5);
+		Mesa m6s5 = new Mesa(se5, 3);
+		se5.getMesas().add(m6s5);
+
 	}
 }

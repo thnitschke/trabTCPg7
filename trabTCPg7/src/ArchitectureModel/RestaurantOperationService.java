@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import domainModel.AcaoInvalidaException;
 import domainModel.AuxiliarCozinha;
 import domainModel.Funcionario;
 import domainModel.Garcom;
@@ -26,7 +27,7 @@ import domainModel.Turno;
 public interface RestaurantOperationService
 {
 
-	public Funcionario login (String id);
+	public Funcionario login (String id) ;
 
 	public ArrayList< Mesa > getMesas ();
 

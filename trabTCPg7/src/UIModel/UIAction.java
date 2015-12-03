@@ -22,4 +22,32 @@ public abstract class UIAction
 	 * devidamente implementado nas classes que herdarem a classe UIAction.
 	 */
 	public abstract void execute ();
+
+	/**
+	 * @return the interf
+	 */
+	public RestaurantInterface getInterf() {
+		return interf;
+	}
+
+	/**
+	 * @param interf the interf to set
+	 */
+	public void setInterf(RestaurantInterface interf) {
+		this.interf = interf;
+	}
+
+	/**
+	 * @return the operationService
+	 */
+	public RestaurantOperationService getOperationService() {
+		return operationService;
+	}
+
+	/**
+	 * @param operationService the operationService to set
+	 */
+	public void setOperationService(RestaurantOperationService operationService) {
+		this.operationService = operationService;
+	}
 }

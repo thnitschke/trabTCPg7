@@ -1,5 +1,14 @@
 package UIModel;
 
+
+import java.util.Scanner;
+
+import ArchitectureModel.RestaurantInterface;
+import ArchitectureModel.RestaurantOperationService;
+import ArchitectureModel.RestaurantOperationServiceImpl;
+import domainModel.AcaoInvalidaException;
+import domainModel.Funcionario;
+
 /**
  * Classe Action LoginAction. Extende a classe abstrata UIAction.
  * 
@@ -8,15 +17,27 @@ package UIModel;
  */
 public class LoginAction extends UIAction
 {
-
+	
+	private RestaurantInterface interfaces;
+	private RestaurantOperationService operationService;
+	
 	/**
 	 * Método de execução da action de login.
 	 */
 	@Override
 	public void execute ()
 	{
-		// TODO Auto-generated method stub
-
+		System.out.println("**** BEM VINDO AO SISTEMA DO RESTAURANTE **** \n");
+		Scanner typeID = new Scanner (System.in);
+		System.out.println("Informe o seu ID para acesso: ");
+		String loginID = typeID.next();
+		Funcionario empregado = operationService.login(loginID);
+		try {
+			interfaces.login(empregado);
+		} catch (AcaoInvalidaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

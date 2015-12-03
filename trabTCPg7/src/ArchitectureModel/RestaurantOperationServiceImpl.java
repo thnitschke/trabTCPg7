@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import domainModel.AcaoInvalidaException;
 import domainModel.AuxiliarCozinha;
 import domainModel.Funcionario;
 import domainModel.Garcom;
@@ -18,14 +19,20 @@ public class RestaurantOperationServiceImpl
 		implements RestaurantOperationService
 {
 
+	
 	private Database database;
 
+	
 	@Override
 	public Funcionario login (String id)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		database = Database.getInstanciaUnica();
+			if (Database.getInstanciaUnica().getFuncionario(id) != null){
+				return database.getFuncionario(id);
+			} else
+				return null;
 	}
+	
 
 	@Override
 	public ArrayList< Mesa > getMesas ()
@@ -91,10 +98,9 @@ public class RestaurantOperationServiceImpl
 	}
 
 	@Override
-	public void cancelaReserva (Reserva reserva)
+	public void cancelaReserva()
 	{
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -111,7 +117,6 @@ public class RestaurantOperationServiceImpl
 		return null;
 	}
 
-	@Override
 	public void prepararItens (Pedido pedido, ArrayList< Item > itens)
 	{
 		return;
@@ -163,7 +168,7 @@ public class RestaurantOperationServiceImpl
 	public void setGarconsSetor (
 			HashMap< ArrayList< Garcom >, Setor > garcomSetor)
 	{
-		// TODO Auto-generated method stub
+		return;
 
 	}
 
