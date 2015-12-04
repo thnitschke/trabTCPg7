@@ -2,6 +2,7 @@ package ArchitectureModel;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import domainModel.AcaoInvalidaException;
@@ -23,24 +24,48 @@ public class RestaurantOperationServiceImpl
 	private Database database;
 
 	
+	/**
+	 * Executa o login de um usuário. Recebe um id e verifica se este id existe
+	 * no banco de dados (Database). Caso positivo retorna o funcionário correspon-
+	 * dente, e null caso contrário.
+	 * 
+	 */
 	@Override
 	public Funcionario login (String id)
 	{
 		database = Database.getInstanciaUnica();
+		
 			if (Database.getInstanciaUnica().getFuncionario(id) != null){
 				return database.getFuncionario(id);
 			} else
 				return null;
 	}
 	
+	
 
+	/**
+	 * Retorna a lista de mesas que possuem reserva. Pega a lista de mesas a partir 
+	 * da Database, e varre procurando por mesas com reserva. Caso a mesa não possua, 
+	 * ela é excluida da lista de mesas. Após a varredura, é retornado uma lista apenas 
+	 * com as mesas que possuem reserva realizada.
+	 * 
+	 */
 	@Override
 	public ArrayList< Mesa > getMesas ()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		
+		ArrayList<Mesa> mesasReservadas= Database.getInstanciaUnica().getMesas();
+		for (int mesa = 0; mesa < mesasReservadas.size(); mesa++) {
+			if (mesasReservadas.get(mesa).getReserva() == null){
+				mesasReservadas.remove(mesa);
+			}	
+		}
+		
+		return mesasReservadas;
 	}
 
+	
+	
 	@Override
 	public ArrayList< Mesa > getMesasParaAtendimento (Garcom garcom)
 	{
@@ -55,13 +80,38 @@ public class RestaurantOperationServiceImpl
 		return null;
 	}
 
+
+	
+	/**
+	 * Retorna uma lista contendo todas as mesas que se encontram sujas 
+	 * no Restaurante. Inicia inserindo em uma lista todas as mesas disponíveis
+	 * no restaurante. Após a inserção de todas as mesas, essa lista é varrida
+	 * verificando todas as mesas sujas existentes. Caso a mesa esteja limpa, a 
+	 * mesa é excluída da lista de mesas, e mantida caso contrário. Após a varredura,
+	 * o método retorna a lista de mesas sujas.
+	 * 
+	 */
 	@Override
 	public ArrayList< Mesa > getMesasSujas ()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Mesa> todasMesasRes = Database.getInstanciaUnica().getMesas();
+		for (int mesa = 0; mesa < todasMesasRes.size(); mesa++) {
+			System.out.println(mesa);
+			System.out.println(todasMesasRes.get(mesa));
+		}	
+		
+		
+		for (int mesa = 0; mesa < todasMesasRes.size(); mesa++) {
+			if (todasMesasRes.get(mesa).isLimpa()){
+				todasMesasRes.remove(mesa);	
+			}	
+		}
+		return todasMesasRes;
 	}
 
+	
+	
+	
 	@Override
 	public ArrayList< Mesa > getMesasAbertas (Garcom garcom)
 	{
@@ -69,13 +119,31 @@ public class RestaurantOperationServiceImpl
 		return null;
 	}
 
+	
+	
+	/**
+	 * Retorna uma lista contendo todas as mesas que não possuem reserva. Inicia
+	 * adquirindo todas as mesas do restaurante. E após adquirir a lista, ela será 
+	 * varrida verificando quais mesas possuem reserva. Caso a mesa possuir, esta mesa
+	 * é excluída da lista de mesas. Caso contrário, a mesa será mantida. Após a exe-
+	 * cução, a lista de mesas sem reserva é devolvida.
+	 * 
+	 */
 	@Override
 	public ArrayList< Mesa > getMesasSemReserva ()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Mesa> mesasSemReserva = Database.getInstanciaUnica().getMesas();
+		for (int mesa = 0; mesa < mesasSemReserva.size(); mesa++) {
+			if (mesasSemReserva.get(mesa).getReserva() != null){
+				mesasSemReserva.remove(mesa);
+			}	
+		}
+		return mesasSemReserva;
 	}
 
+	
+	
+	
 	@Override
 	public boolean verificaMesasLiberadas ()
 	{
@@ -90,19 +158,32 @@ public class RestaurantOperationServiceImpl
 
 	}
 
+	
+	
+	/**
+	 * Reserva uma determinada mesa em um determinado horario.
+	 * 
+	 */
 	@Override
-	public void reservaMesa (Mesa mesa, Time horario)
+	public void reservaMesa (Mesa mesa, String horario)
 	{
-		// TODO Auto-generated method stub
-
+		mesa.setReserva(horario);
 	}
 
+	
+	
+	/**
+	 * Cancela uma reserva feita anteriormente em uma mesa.
+	 * 
+	 */
 	@Override
-	public void cancelaReserva()
+	public void cancelaReserva(Mesa mesa)
 	{
-		// TODO Auto-generated method stub
+		mesa.setReserva(null);
 	}
 
+	
+	
 	@Override
 	public void liberaMesa (AuxiliarCozinha funcionario, Mesa mesa)
 	{

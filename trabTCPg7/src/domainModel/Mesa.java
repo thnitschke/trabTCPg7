@@ -1,6 +1,7 @@
 package domainModel;
 
 import java.sql.Time;
+import java.util.Date;
 
 /**
  * Guarda todas as informações relacionadas a uma mesa do restaurante. Além das
@@ -13,14 +14,18 @@ import java.sql.Time;
  */
 public class Mesa
 {
+	
+	private String codigoMesa; ///NEW
 	private Setor setor;
 	private int capacidade;
 	private boolean limpa;
 	private boolean ocupada;
-	private Time reserva;
+	//private Date reserva;
+	private String reserva;
 	private Pedido pedido;
 	private double gorjetaLimpeza;
 
+	
 	/**
 	 * Construtor de um objeto Mesa.
 	 * 
@@ -29,10 +34,11 @@ public class Mesa
 	 * @param capacidade
 	 *            Informa a capacidade da mesa.
 	 */
-	public Mesa (Setor setor, int capacidade)
+	public Mesa (Setor setor, int capacidade, String cod)
 	{
 		this.setor = setor;
 		this.capacidade = capacidade;
+		codigoMesa = cod;
 		limpa = true;
 		ocupada = false;
 		reserva = null;
@@ -40,6 +46,8 @@ public class Mesa
 		gorjetaLimpeza = 0;
 	}
 
+	
+	
 	/**
 	 * Retorna o setor da mesa.
 	 * 
@@ -50,6 +58,8 @@ public class Mesa
 		return setor;
 	}
 
+	
+	
 	/**
 	 * Retorna a capacidade de uma mesa.
 	 * 
@@ -60,6 +70,8 @@ public class Mesa
 		return capacidade;
 	}
 
+	
+	
 	/**
 	 * Retorna o pedido de um objeto mesa.
 	 * 
@@ -70,6 +82,8 @@ public class Mesa
 		return pedido;
 	}
 
+	
+	
 	/**
 	 * Retorna o atributo gorjetaLimpeza.
 	 * 
@@ -80,16 +94,20 @@ public class Mesa
 		return gorjetaLimpeza;
 	}
 
+	
+	
 	/**
 	 * Retorna a reserva da mesa.
 	 * 
 	 * @return Retorna a reserva.
 	 */
-	public Time getReserva ()
+	public String getReserva ()
 	{
 		return reserva;
 	}
 
+	
+	
 	/**
 	 * Associa um Pedido a mesa.
 	 * 
@@ -101,6 +119,8 @@ public class Mesa
 		this.pedido = pedido;
 	}
 
+	
+	
 	/**
 	 * Atribui um valor para o atributo gorjetaLimpeza.
 	 * 
@@ -113,17 +133,21 @@ public class Mesa
 		this.gorjetaLimpeza = gorjetaLimpeza;
 	}
 
+	
+	
 	/**
 	 * Associa uma reserva a uma mesa.
 	 * 
 	 * @param reserva
 	 *            Recebe um valor de tipo Time.
 	 */
-	public void setReserva (Time reserva)
+	public void setReserva (String reserva)
 	{
 		this.reserva = reserva;
 	}
 
+	
+	
 	/**
 	 * Verifica se uma mesa está limpa.
 	 * 
@@ -139,6 +163,8 @@ public class Mesa
 		return false;
 	}
 
+	
+	
 	/**
 	 * Verifica se a mesa está ocupada ou não.
 	 * 
@@ -154,6 +180,8 @@ public class Mesa
 		return false;
 	}
 
+	
+	
 	/**
 	 * Ocupa uma mesa.
 	 */
@@ -164,6 +192,8 @@ public class Mesa
 
 	}
 
+	
+	
 	/**
 	 * Desocupa uma mesa.
 	 */
@@ -174,6 +204,8 @@ public class Mesa
 		pedido = null;
 	}
 
+	
+	
 	/**
 	 * Verifica se uma mesa está disponível.
 	 * 
@@ -187,6 +219,29 @@ public class Mesa
 			return true;
 		}
 		return false;
+	}
+
+	
+	
+	/**
+	 * Retorna o código da mesa.
+	 * 
+	 * @return Retorna o código.
+	 * 
+	 */
+	public String getCodigoMesa() {
+		return codigoMesa;
+	}
+
+	
+	
+	/**
+	 * Modifica o código de uma mesa.
+	 * 
+	 * @param codigoMesa Recebe um código para modificar.
+	 */
+	public void setCodigoMesa(String codigoMesa) {
+		this.codigoMesa = codigoMesa;
 	}
 
 }

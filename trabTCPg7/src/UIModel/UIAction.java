@@ -1,7 +1,11 @@
 package UIModel;
 
+import java.util.Scanner;
+
 import ArchitectureModel.RestaurantInterface;
 import ArchitectureModel.RestaurantOperationService;
+import ArchitectureModel.RestaurantOperationServiceImpl;
+
 
 /**
  * Classe abstrata UIAction. Superclasse de todas as ações disponíveis no
@@ -10,19 +14,23 @@ import ArchitectureModel.RestaurantOperationService;
  * 
  * @author Rodrigo Okido (trabTCPg7)
  * @version 1.0
+ * 
  */
 public abstract class UIAction
 {
 
-	private RestaurantInterface interf;
-	private RestaurantOperationService operationService;
-
+	protected static RestaurantInterface interf = new RestaurantInterface ();
+	protected static RestaurantOperationService operationService = new RestaurantOperationServiceImpl() ;
+	protected static Scanner someInput = new Scanner(System.in);
+	
 	/**
 	 * Método abstrata de executar uma determinada ação. Este método deve ser
 	 * devidamente implementado nas classes que herdarem a classe UIAction.
 	 */
 	public abstract void execute ();
 
+	
+	
 	/**
 	 * @return the interf
 	 */
@@ -30,6 +38,8 @@ public abstract class UIAction
 		return interf;
 	}
 
+	
+	
 	/**
 	 * @param interf the interf to set
 	 */
@@ -37,6 +47,8 @@ public abstract class UIAction
 		this.interf = interf;
 	}
 
+	
+	
 	/**
 	 * @return the operationService
 	 */
@@ -44,6 +56,8 @@ public abstract class UIAction
 		return operationService;
 	}
 
+	
+	
 	/**
 	 * @param operationService the operationService to set
 	 */

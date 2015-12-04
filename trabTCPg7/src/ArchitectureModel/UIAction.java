@@ -1,5 +1,8 @@
 package ArchitectureModel;
 
+
+  
+ 
 public abstract class UIAction
 {
 
@@ -8,3 +11,4 @@ public abstract class UIAction
 
 	public abstract void execute ();
 }
+

@@ -15,8 +15,7 @@ public class LogoutAction extends UIAction
 	@Override
 	public void execute ()
 	{
-		// TODO Auto-generated method stub
-
+		interf.logout();
 	}
 
 }

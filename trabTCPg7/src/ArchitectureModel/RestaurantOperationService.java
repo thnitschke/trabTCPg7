@@ -2,6 +2,7 @@ package ArchitectureModel;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import domainModel.AcaoInvalidaException;
@@ -45,9 +46,9 @@ public interface RestaurantOperationService
 
 	public void sentaCliente (Mesa mesa);
 
-	public void reservaMesa (Mesa mesa, Time horario);
+	public void reservaMesa (Mesa mesa, String horario);
 
-	public void cancelaReserva (Reserva reserva);
+	public void cancelaReserva (Mesa mesa);
 
 	public void liberaMesa (AuxiliarCozinha funcionario, Mesa mesa);
 
