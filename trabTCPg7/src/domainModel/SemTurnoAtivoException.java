@@ -10,6 +10,11 @@ public class SemTurnoAtivoException extends Exception
 {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2312124279505783047L;
+
+	/**
 	 * Construtor da exceção SemTurnoAtivoException.
 	 * 
 	 * @param message

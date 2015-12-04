@@ -12,8 +12,7 @@ public class FazerRelatorioAction extends UIAction
 	/**
 	 * Método de execução da action de fazer um relatório.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
 		// TODO Auto-generated method stub
 

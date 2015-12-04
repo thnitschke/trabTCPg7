@@ -13,7 +13,7 @@ public class AuxiliarCozinha extends Funcionario
 	 * Construtor de um AuxiliarCozinha.
 	 * 
 	 * @param id
-	 *            Recebe um String id.
+	 *                Recebe um String id.
 	 */
 	public AuxiliarCozinha (String id)
 	{

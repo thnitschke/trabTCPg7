@@ -1,8 +1,5 @@
 package domainModel;
 
-import java.sql.Time;
-import java.util.Date;
-
 /**
  * Guarda todas as informações relacionadas a uma mesa do restaurante. Além das
  * informações permanentes, como capacidade e setor, também armazena informações
@@ -14,25 +11,24 @@ import java.util.Date;
  */
 public class Mesa
 {
-	
-	private String codigoMesa; ///NEW
+
+	private String codigoMesa; /// NEW
 	private Setor setor;
 	private int capacidade;
 	private boolean limpa;
 	private boolean ocupada;
-	//private Date reserva;
+	// private Date reserva;
 	private String reserva;
 	private Pedido pedido;
 	private double gorjetaLimpeza;
 
-	
 	/**
 	 * Construtor de um objeto Mesa.
 	 * 
 	 * @param setor
-	 *            Informa o setor da mesa.
+	 *                Informa o setor da mesa.
 	 * @param capacidade
-	 *            Informa a capacidade da mesa.
+	 *                Informa a capacidade da mesa.
 	 */
 	public Mesa (Setor setor, int capacidade, String cod)
 	{
@@ -46,8 +42,6 @@ public class Mesa
 		gorjetaLimpeza = 0;
 	}
 
-	
-	
 	/**
 	 * Retorna o setor da mesa.
 	 * 
@@ -58,8 +52,6 @@ public class Mesa
 		return setor;
 	}
 
-	
-	
 	/**
 	 * Retorna a capacidade de uma mesa.
 	 * 
@@ -70,8 +62,6 @@ public class Mesa
 		return capacidade;
 	}
 
-	
-	
 	/**
 	 * Retorna o pedido de um objeto mesa.
 	 * 
@@ -82,8 +72,6 @@ public class Mesa
 		return pedido;
 	}
 
-	
-	
 	/**
 	 * Retorna o atributo gorjetaLimpeza.
 	 * 
@@ -94,8 +82,6 @@ public class Mesa
 		return gorjetaLimpeza;
 	}
 
-	
-	
 	/**
 	 * Retorna a reserva da mesa.
 	 * 
@@ -106,53 +92,45 @@ public class Mesa
 		return reserva;
 	}
 
-	
-	
 	/**
 	 * Associa um Pedido a mesa.
 	 * 
 	 * @param pedido
-	 *            Recebe um pedido do tipo Pedido.
+	 *                Recebe um pedido do tipo Pedido.
 	 */
 	public void setPedido (Pedido pedido)
 	{
 		this.pedido = pedido;
 	}
 
-	
-	
 	/**
 	 * Atribui um valor para o atributo gorjetaLimpeza.
 	 * 
 	 * @param gorjetaLimpeza
-	 *            Recebe um valor double para associar ao atributo
-	 *            gorjetaLimpeza.
+	 *                Recebe um valor double para associar ao atributo
+	 *                gorjetaLimpeza.
 	 */
 	public void setGorjetaLimpeza (double gorjetaLimpeza)
 	{
 		this.gorjetaLimpeza = gorjetaLimpeza;
 	}
 
-	
-	
 	/**
 	 * Associa uma reserva a uma mesa.
 	 * 
 	 * @param reserva
-	 *            Recebe um valor de tipo Time.
+	 *                Recebe um valor de tipo Time.
 	 */
 	public void setReserva (String reserva)
 	{
 		this.reserva = reserva;
 	}
 
-	
-	
 	/**
 	 * Verifica se uma mesa está limpa.
 	 * 
-	 * @return Retorna true se a mesa estiver limpa, caso contrário retornará
-	 *         false.
+	 * @return Retorna true se a mesa estiver limpa, caso contrário
+	 *         retornará false.
 	 */
 	public boolean isLimpa ()
 	{
@@ -163,8 +141,6 @@ public class Mesa
 		return false;
 	}
 
-	
-	
 	/**
 	 * Verifica se a mesa está ocupada ou não.
 	 * 
@@ -180,8 +156,6 @@ public class Mesa
 		return false;
 	}
 
-	
-	
 	/**
 	 * Ocupa uma mesa.
 	 */
@@ -192,8 +166,6 @@ public class Mesa
 
 	}
 
-	
-	
 	/**
 	 * Desocupa uma mesa.
 	 */
@@ -204,8 +176,6 @@ public class Mesa
 		pedido = null;
 	}
 
-	
-	
 	/**
 	 * Verifica se uma mesa está disponível.
 	 * 
@@ -221,26 +191,24 @@ public class Mesa
 		return false;
 	}
 
-	
-	
 	/**
 	 * Retorna o código da mesa.
 	 * 
 	 * @return Retorna o código.
-	 * 
 	 */
-	public String getCodigoMesa() {
+	public String getCodigoMesa ()
+	{
 		return codigoMesa;
 	}
 
-	
-	
 	/**
 	 * Modifica o código de uma mesa.
 	 * 
-	 * @param codigoMesa Recebe um código para modificar.
+	 * @param codigoMesa
+	 *                Recebe um código para modificar.
 	 */
-	public void setCodigoMesa(String codigoMesa) {
+	public void setCodigoMesa (String codigoMesa)
+	{
 		this.codigoMesa = codigoMesa;
 	}
 

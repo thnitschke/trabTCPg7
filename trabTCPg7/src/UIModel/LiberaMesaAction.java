@@ -12,8 +12,7 @@ public class LiberaMesaAction extends UIAction
 	/**
 	 * Método de execução da action de liberar uma mesa.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
 		// TODO Auto-generated method stub
 

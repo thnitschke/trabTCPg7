@@ -12,10 +12,9 @@ public class LogoutAction extends UIAction
 	/**
 	 * Método de execução da action de logout.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
-		interf.logout();
+		interf.logout ();
 	}
 
 }

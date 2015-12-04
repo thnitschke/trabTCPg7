@@ -10,6 +10,11 @@ public class AcaoInvalidaException extends Exception
 {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7625711999472133662L;
+
+	/**
 	 * Construtor da exceção AcaoInvalidaException.
 	 * 
 	 * @param message

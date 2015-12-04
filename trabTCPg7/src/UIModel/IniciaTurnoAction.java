@@ -12,8 +12,7 @@ public class IniciaTurnoAction extends UIAction
 	/**
 	 * Método de execução da action para iniciar turno.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
 		// TODO Auto-generated method stub
 

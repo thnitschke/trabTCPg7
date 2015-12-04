@@ -17,9 +17,9 @@ public class ItemPedido
 	 * Construtor da classe ItemPedido. (NEW)
 	 * 
 	 * @param item
-	 *            Recebe um objeto do tipo Item.
+	 *                Recebe um objeto do tipo Item.
 	 * @param estado
-	 *            Recebe um estado.
+	 *                Recebe um estado.
 	 */
 	public ItemPedido (Item item, Estado estado)
 	{
@@ -51,7 +51,7 @@ public class ItemPedido
 	 * Modifica um objeto item.
 	 * 
 	 * @param item
-	 *            Recebe um objeto do tipo Item.
+	 *                Recebe um objeto do tipo Item.
 	 */
 	public void setItem (Item item)
 	{
@@ -62,8 +62,8 @@ public class ItemPedido
 	 * Modifica o estado de um item.
 	 * 
 	 * @param estado
-	 *            Recebe por parâmetro um objeto do tipo Estado para fazer a
-	 *            modificação.
+	 *                Recebe por parâmetro um objeto do tipo Estado para
+	 *                fazer a modificação.
 	 */
 	public void setEstado (Estado estado)
 	{

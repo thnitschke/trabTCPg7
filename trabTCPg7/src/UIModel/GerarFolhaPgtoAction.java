@@ -12,8 +12,7 @@ public class GerarFolhaPgtoAction extends UIAction
 	/**
 	 * Método de execução da action de gerar a folha de pagamento.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
 		// TODO Auto-generated method stub
 

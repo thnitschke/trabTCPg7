@@ -12,8 +12,7 @@ public class SentaClienteAction extends UIAction
 	/**
 	 * Método de execução da action de sentar um cliente em uma mesa.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
 		// TODO Auto-generated method stub
 

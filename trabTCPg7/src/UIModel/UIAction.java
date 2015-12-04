@@ -44,7 +44,7 @@ public abstract class UIAction
 	 * @param interf the interf to set
 	 */
 	public void setInterf(RestaurantInterface interf) {
-		this.interf = interf;
+		UIAction.interf = interf;
 	}
 
 	
@@ -62,6 +62,6 @@ public abstract class UIAction
 	 * @param operationService the operationService to set
 	 */
 	public void setOperationService(RestaurantOperationService operationService) {
-		this.operationService = operationService;
+		UIAction.operationService = operationService;
 	}
 }

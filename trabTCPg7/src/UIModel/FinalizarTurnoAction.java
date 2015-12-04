@@ -12,8 +12,7 @@ public class FinalizarTurnoAction extends UIAction
 	/**
 	 * Método de execução da action de finalizar um turno.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
 		// TODO Auto-generated method stub
 

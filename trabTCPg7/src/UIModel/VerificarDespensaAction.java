@@ -12,8 +12,7 @@ public class VerificarDespensaAction extends UIAction
 	/**
 	 * Método de execução da action de verificar a despensa.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
 		// TODO Auto-generated method stub
 

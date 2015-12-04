@@ -18,9 +18,9 @@ public class Item
 	private Receita receita;
 
 	/**
-	 * (MOD) Construtor de um objeto Item.
-	 * MODIF: Inserido parâmetro receita, para poder-se determinar qual a
-	 * classe Receita deste tipo de Item.
+	 * (MOD) Construtor de um objeto Item. MODIF: Inserido parâmetro
+	 * receita, para poder-se determinar qual a classe Receita deste tipo de
+	 * Item.
 	 * 
 	 * @author RodrigoOkido, thnitschke
 	 * @version 1.1
@@ -31,18 +31,18 @@ public class Item
 	 * @param custo
 	 *                Define o custo do item (double).
 	 * @param tempo
-	 *                Define o tempo de preparação (double).
+	 *                (MODIF) Define o tempo de preparação em minutos
+	 *                (double).
 	 * @param receita
 	 *                (NEW) Define a receita do item (Receita).
 	 */
-	public Item (double preco, String categ, double custo, double tempo,
-			Receita receita)
+	public Item (double preco, String categ, double custo, double tempo, Receita receita)
 	{
 		this.preco = preco;
 		categoria = categ;
 		this.custo = custo;
+		this.receita = receita;	// (NEW)
 		this.tempo = tempo;
-		this.setReceita (receita);	// (NEW)
 	}
 
 	/**
@@ -66,18 +66,6 @@ public class Item
 	}
 
 	/**
-	 * Modifica a categoria de um item.
-	 * 
-	 * @param categoria
-	 *                Recebe uma String categoria para modificar o atributo
-	 *                "categoria".
-	 */
-	public void setCategoria (String categoria)
-	{
-		this.categoria = categoria;
-	}
-
-	/**
 	 * Retorna o custo do Item.
 	 * 
 	 * @return Retorna o custo.
@@ -85,18 +73,6 @@ public class Item
 	public double getCusto ()
 	{
 		return custo;
-	}
-
-	/**
-	 * Modifica o custo de um item.
-	 * 
-	 * @param custo
-	 *                Recebe um double custo para modificar o atributo
-	 *                "custo".
-	 */
-	public void setCusto (double custo)
-	{
-		this.custo = custo;
 	}
 
 	/**
@@ -110,30 +86,6 @@ public class Item
 	}
 
 	/**
-	 * Modifica o tempo de preparação de um item.
-	 * 
-	 * @param tempo
-	 *                Recebe um double tempo para modificar o atributo
-	 *                "tempo".
-	 */
-	public void setTempo (double tempo)
-	{
-		this.tempo = tempo;
-	}
-
-	/**
-	 * Modifica o preço de um item.
-	 * 
-	 * @param preco
-	 *                Recebe um double preco para modificar o atributo
-	 *                "preco".
-	 */
-	public void setPreco (double preco)
-	{
-		this.preco = preco;
-	}
-
-	/**
 	 * @return receita
 	 */
 	public Receita getReceita ()
@@ -142,23 +94,11 @@ public class Item
 	}
 
 	/**
-	 * @param receita
-	 *                do item OBS: Não seria preciso modificar a Receita de
-	 *                um Item após o mesmo já ter sido criado.
-	 */
-	public void setReceita (Receita receita)
-	{
-		this.receita = receita;
-	}
-
-	/**
 	 * (MOD) Método getIngredientes: Coleta do atributo receita os
 	 * Ingredientes que compõem o Item da classe, e retorna um "mapa" com os
-	 * Ingredientes do mesmo e suas quantidades.
-	 * 
-	 * MODIFICAÇÃO: Map é apenas interface, trocou-se o mesmo para HashMap,
-	 * que é a mais apropriada das classes que implementam Map para a
-	 * função que estamos utilizando.
+	 * Ingredientes do mesmo e suas quantidades. MODIFICAÇÃO: Map é apenas
+	 * interface, trocou-se o mesmo para HashMap, que é a mais apropriada
+	 * das classes que implementam Map para a função que estamos utilizando.
 	 * 
 	 * @see HashMap
 	 * @return HashMap com Ingredientes mapeados para sua quantidade.

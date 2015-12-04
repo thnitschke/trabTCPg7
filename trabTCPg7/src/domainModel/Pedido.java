@@ -1,6 +1,7 @@
 package domainModel;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Guarda as informações sobre o pedido de uma mesa. Uma mesa não pode conter
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * preparação de cada um. Além disso, ele possui um atributo indicando seu
  * estado de preparação e o garçom responsável pelo pedido.
  *
- * @author Rodrigo Okido (trabTCPg7)
+ * @author Rodrigo Okido (trabTCPg7), thnitschke
  * @version 1.0
  */
 public class Pedido
@@ -17,22 +18,23 @@ public class Pedido
 	private ArrayList< ItemPedido > itens;
 	private Estado estado;
 	private Garcom garcom;
-
-	// Criação de novo atributo lista de itens
-	private ArrayList< Item > listItens;
+	// Remoção do atributo listItens, não é preciso.
 
 	/**
-	 * Construtor de Pedido.
+	 * Construtor de Pedido. MODIFICADO!
 	 * 
+	 * @author thnitschke
+	 * @version 1.1
 	 * @param garcom
-	 *            Recebe um garçom.
-	 * @param itens
-	 *            Recebe uma lista de Itens.
+	 *                Recebe um garçom.
+	 * @param mesa
+	 *                Recebe uma lista de Itens.
 	 */
-	public Pedido (Garcom garcom, ArrayList< Item > items)
+	public Pedido (Garcom garcom, Mesa mesa)
 	{
 		this.garcom = garcom;
-		listItens = items;
+		this.mesa = mesa;
+		estado = Estado.PENDENTE;
 	}
 
 	/**
@@ -49,7 +51,8 @@ public class Pedido
 	 * Insere um estado para o pedido.
 	 * 
 	 * @param estado
-	 *            Recebe um estado por parâmetro para associar ao pedido.
+	 *                Recebe um estado por parâmetro para associar ao
+	 *                pedido.
 	 */
 	public void setEstado (Estado estado)
 	{
@@ -61,9 +64,9 @@ public class Pedido
 	 * estado.
 	 * 
 	 * @param itens
-	 *            Recebe uma lista de objetos do tipo Item.
+	 *                Recebe uma lista de objetos do tipo ItemPedido.
 	 * @param estado
-	 *            Recebe um estado.
+	 *                Recebe um estado.
 	 */
 	public void setEstadoItens (ArrayList< ItemPedido > itens, Estado umEstado)
 	{
@@ -75,12 +78,31 @@ public class Pedido
 	}
 
 	/**
+	 * (NEW) Getter da lista de ItemPedido itens.
+	 * 
+	 * @author thnitschke
+	 * @version 1.0
+	 */
+	ArrayList< ItemPedido > getItens ()
+	{
+		return itens;
+	}
+
+	/**
 	 * (NEW) Pega a lista de itens do pedido.
 	 * 
+	 * @author thnitschke
+	 * @version 1.1
 	 * @return retorna a lista de itens.
 	 */
 	public ArrayList< Item > getListItems ()
 	{
+		ArrayList< Item > listItens = new ArrayList< Item > (itens.size ());
+		for (Iterator< ItemPedido > iterator = itens.iterator (); iterator.hasNext ();)
+		{
+			ItemPedido item = (ItemPedido) iterator.next ();
+			listItens.add (item.getItem ());
+		}
 		return listItens;
 	}
 
@@ -119,7 +141,7 @@ public class Pedido
 	 * Adiciona uma lista de pedidos a partir de um pedido.
 	 * 
 	 * @param pedido
-	 *            Recebe um pedido por parâmetro.
+	 *                Recebe um pedido por parâmetro.
 	 */
 	public void addItens (Pedido pedido)
 	{
@@ -136,13 +158,14 @@ public class Pedido
 	 * pedido do cliente para a lista de pedidos.
 	 * 
 	 * @param item
-	 *            Recebe um objeto do tipo Item.
+	 *                Recebe um objeto do tipo Item.
 	 */
 	public void adicionaItem (Item item)
 	{
-		ItemPedido novoPedido = new ItemPedido (item, estado.PENDENTE);
+		ItemPedido novoPedido = new ItemPedido (item, Estado.PENDENTE);
 		boolean added = false;
-		// Se vazio apenas adiciona o item. Caso contrário deve verificar a
+		// Se vazio apenas adiciona o item. Caso contrário deve
+		// verificar a
 		// lista
 		// e ordenar de acordo com a categoria do pedido.
 		if (itens.isEmpty ())
@@ -170,4 +193,28 @@ public class Pedido
 
 	}
 
+	public Mesa getMesa ()
+	{
+		return mesa;
+	}
+
+	/**
+	 * Checa se todos ItemPedido na lista itens estão prontos (finalizados).
+	 * 
+	 * @author thnitschke
+	 * @version 1.0
+	 */
+	public boolean todosItensFinalizados ()
+	{
+		for (Iterator< ItemPedido > iterator = itens.iterator (); iterator.hasNext ();)
+		{
+			ItemPedido itemPedido = (ItemPedido) iterator.next ();
+			if (itemPedido.getEstado () != Estado.PRONTO)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
 }

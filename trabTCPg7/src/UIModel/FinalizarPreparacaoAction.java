@@ -12,8 +12,7 @@ public class FinalizarPreparacaoAction extends UIAction
 	/**
 	 * Método de execução da action de finalizar uma preparação.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
 		// TODO Auto-generated method stub
 

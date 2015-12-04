@@ -13,7 +13,7 @@ public class Atendente extends Funcionario
 	 * Construtor de um Atendente.
 	 * 
 	 * @param id
-	 *            Recebe um String id.
+	 *                Recebe um String id.
 	 */
 	public Atendente (String id)
 	{

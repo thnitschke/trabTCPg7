@@ -2,27 +2,29 @@ package domainModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+
+import ArchitectureModel.Database;
 
 /**
  * (IMPL) Classe que guarda todas as informações relacionadas a um turno
  * específico, como os pedidos de cada mesa, o dinheiro obtido por cada
- * funcionário, a distribuição de garçom por mesa, etc.
- * Mantém uma lista de todos os pedidos feitos no turno, sem deletar pedidos
- * que foram completos.
+ * funcionário, a distribuição de garçom por mesa, etc. Mantém uma lista de
+ * todos os pedidos feitos no turno, sem deletar pedidos que foram completos.
  * 
  * @author thnitschke
  * @version 1.0
  * @param custo
- * 	Custo (gastos) parcial (ou total quando turno estiver fechado) do Turno.
+ *                Custo (gastos) parcial (ou total quando turno estiver fechado)
+ *                do Turno.
  * @param lucro
- * 	Lucro parcial (ou total quando turno estiver fechado) do Turno.
+ *                Lucro parcial (ou total quando turno estiver fechado) do
+ *                Turno.
  * @param garcomSetor
- * 	Mapa relacionando cada Garcom com o Setor à que foi associado neste
- * Turno.
- * @param, pedidos
- * 	Lista de todos Pedidos do Turno.
+ *                Mapa relacionando cada Garcom com o Setor à que foi associado
+ *                neste Turno. @param, pedidos Lista de todos Pedidos do Turno.
  * @param gorjetas
- * 	Mapa relacionando Funcionarios com suas gorjetas.
+ *                Mapa relacionando Funcionarios com suas gorjetas.
  */
 public class Turno
 {
@@ -37,7 +39,7 @@ public class Turno
 	 * 
 	 * @author thnitschke
 	 */
-	public Turno() 
+	public Turno ()
 	{
 		custo = 0;
 		lucro = 0;
@@ -51,7 +53,7 @@ public class Turno
 	 * pertencentes a este Turno.
 	 * 
 	 * @author thnitschke
-	 */	
+	 */
 	public void addPedido (Pedido pedido)
 	{
 		pedidos.add (pedido);
@@ -98,11 +100,11 @@ public class Turno
 	{
 		return garcomSetor.get (garcom);
 	}
-	
+
 	/**
 	 * Adiciona gorjeta a um objeto Funcionario. Se este Funcionario não
-	 * houver recebido alguma gorjeta anteriormente, adiciona-se o mesmo
-	 * ao Map de gorjetas, senão, inicializa-se o valor Double com o valor da
+	 * houver recebido alguma gorjeta anteriormente, adiciona-se o mesmo ao
+	 * Map de gorjetas, senão, inicializa-se o valor Double com o valor da
 	 * gorjeta inicial, e então adiciona-se o Funcionario ao Map.
 	 * 
 	 * @author thnitschke
@@ -128,13 +130,12 @@ public class Turno
 	 */
 	public ArrayList< Garcom > getGarcons ()
 	{
-		ArrayList< Garcom > listaGarcons = new ArrayList< Garcom > (
-				garcomSetor.size ());
+		ArrayList< Garcom > listaGarcons = new ArrayList< Garcom > (garcomSetor.size ());
 		listaGarcons.addAll (garcomSetor.keySet ());
 
 		return listaGarcons;
 	}
-	
+
 	/**
 	 * Solicita ao turno que defina os garçons para cada setor a partir de
 	 * um dado mapa de garçons e setor.
@@ -154,9 +155,9 @@ public class Turno
 	 */
 	public double getSomaLucros ()
 	{
-		return custo;
+		return lucro;
 	}
-	
+
 	/**
 	 * @author thnitschke
 	 * @return Custo Total.
@@ -167,21 +168,21 @@ public class Turno
 	}
 
 	/**
-	 * OBS: Não está definido na Documentação do Grupo.
-	 * Provavelmente altera o estado de todos itens do Pedido passado como
-	 * parâmetro para finalizados (Estado.PRONTO).
+	 * OBS: Não está definido na Documentação do Grupo. Provavelmente altera
+	 * o estado de todos itens do Pedido passado como parâmetro para
+	 * finalizados (Estado.PRONTO).
 	 * 
 	 * @author thnitschke
 	 * @param pedido
 	 */
 	public void alterarEstadoItensFinalizado (Pedido pedido)
 	{
-		;
+		pedido.setEstadoItens (pedido.getItens (), Estado.PRONTO);
 	}
 
 	/**
-	 * OBS: Não está definido na Documentação do Grupo.
-	 * Provavelmente checa se todos os itens do Pedido estão finalizados.
+	 * OBS: Não está definido na Documentação do Grupo. Provavelmente checa
+	 * se todos os itens do Pedido estão finalizados.
 	 * 
 	 * @author thnitschke
 	 * @param pedido
@@ -189,20 +190,19 @@ public class Turno
 	 */
 	public boolean todosItensFinalizados (Pedido pedido)
 	{
-		return false;
+		return pedido.todosItensFinalizados ();
 	}
 
 	/**
-	 * OBS: Não está definido na Documentação do Grupo.
-	 * Provavelmente muda o estado do Pedido passado como parâmetro para
-	 * finalizado..
+	 * OBS: Não está definido na Documentação do Grupo. Provavelmente muda o
+	 * estado do Pedido passado como parâmetro para finalizado..
 	 * 
 	 * @author thnitschke
 	 * @param pedido
 	 */
 	public void finalizarPedido (Pedido pedido)
 	{
-		;
+		pedido.setEstado (Estado.PRONTO);
 	}
 
 	/**
@@ -216,6 +216,27 @@ public class Turno
 	 */
 	public HashMap< Funcionario, Double > getFolhaPgto ()
 	{
-		return gorjetas;
+		ArrayList< Funcionario > todosFuncionarios = Database.getInstanciaUnica ().getListaFuncionarios ();
+		HashMap< Funcionario, Double > folhaPgto = new HashMap< Funcionario, Double > (gorjetas.size ());
+		HashMap< String, Salario > todosSalarios = Database.getInstanciaUnica ().getSalarios ();
+		Salario salario;
+
+		for (Iterator< Funcionario > iterator = todosFuncionarios.iterator (); iterator.hasNext ();)
+		{
+			Funcionario funcionario = (Funcionario) iterator.next ();
+			salario = todosSalarios.get (funcionario.getClass ().getSimpleName ());
+			
+			if (gorjetas.containsKey (funcionario))
+			{
+				Double gorjeta = gorjetas.get (funcionario);
+				folhaPgto.put (funcionario, gorjeta + salario.getSalario () + salario.getPorcentagem () * this.getSomaLucros ());
+			}
+			else
+			{
+				folhaPgto.put (funcionario, salario.getSalario () + salario.getPorcentagem () * this.getSomaLucros ());
+			}
+		}
+
+		return folhaPgto;
 	}
 }

@@ -12,8 +12,7 @@ public class AtendeMesaAction extends UIAction
 	/**
 	 * Método de execução da action de atender mesa.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
 
 	}
