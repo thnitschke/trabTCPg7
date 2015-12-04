@@ -10,6 +10,7 @@ import domainModel.Ingrediente;
 import domainModel.Item;
 import domainModel.Mesa;
 import domainModel.Pedido;
+import domainModel.SemTurnoAtivoException;
 import domainModel.Setor;
 import domainModel.Turno;
 
@@ -31,7 +32,7 @@ public interface RestaurantOperationService
 
 	public ArrayList< Mesa > getMesasParaAtendimento (Garcom garcom);
 
-	public ArrayList< Mesa > getMesasPara (int pessoas);
+	public ArrayList< Mesa > getMesasPara (int pessoas) throws SemTurnoAtivoException;;
 
 	public ArrayList< Mesa > getMesasSujas ();
 

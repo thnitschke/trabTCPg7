@@ -58,6 +58,7 @@ public class Database
 	 */
 	private Database ()
 	{
+		listaTurnos = new ArrayList<>();
 		listaFuncionarios = new ArrayList< Funcionario > ();
 		listaSetores = new ArrayList< Setor > ();
 		loadRestaurantData ();
@@ -97,6 +98,8 @@ public class Database
 			throw new SemTurnoAtivoException("Não há turno ativo!");
 	}
 
+	
+	
 	/**
 	 * Pesquisa se existe algum funcionário com o id recebido por parâmetro.
 	 * Caso positivo ele retorna o funcionario, caso contrario retorna null.
@@ -118,6 +121,8 @@ public class Database
 		return null;
 	}
 
+	
+	
 	/**
 	 * Retorna a lista de mesas de um determinado setor dado por parâmetro.
 	 * 
@@ -199,8 +204,15 @@ public class Database
 		return listaTurnos;
 	}
 
+	/**
+	 * Armazena um turno encerrado dentro da lista de turnos.
+	 * 
+	 * @param turno Recebe um turno encerrado.
+	 * 
+	 */
 	public void armazenaTurnoAtivo (Turno turno)
 	{
+		listaTurnos.add(turno);
 	}
 
 	public ArrayList< Ingrediente > getFaltaEstoque ()

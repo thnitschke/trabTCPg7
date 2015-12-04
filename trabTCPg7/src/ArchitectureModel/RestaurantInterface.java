@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import UIModel.CancelaReservaAction;
+import UIModel.FazerRelatorioAction;
+import UIModel.FinalizarTurnoAction;
+import UIModel.LiberaMesaAction;
 import UIModel.LoginAction;
 import UIModel.LogoutAction;
 import UIModel.ReservarMesaAction;
+import UIModel.SentaClienteAction;
 import UIModel.UIAction;
 import UIModel.VisualizaMesasSujasAction;
 import domainModel.Atendente;
@@ -27,12 +31,16 @@ public class RestaurantInterface
 {
 	Scanner userOption = new Scanner (System.in);
 	private int option;
-	private boolean valid, logged;
-	private static UIAction loginAction = new LoginAction ();
-	private static UIAction logoutAction = new LogoutAction ();
-	private static UIAction verMesasSujasAction = new VisualizaMesasSujasAction ();
-	private static UIAction reservarMesa = new ReservarMesaAction ();
-	private static UIAction cancelarReserva = new CancelaReservaAction ();
+	private boolean logged;
+	private static UIAction loginAction = new LoginAction();
+	private static UIAction logoutAction = new LogoutAction();
+	private static UIAction verMesasSujasAction = new VisualizaMesasSujasAction();
+	private static UIAction liberaMesa = new LiberaMesaAction();
+	private static UIAction reservarMesa = new ReservarMesaAction();
+	private static UIAction cancelarReserva = new CancelaReservaAction();
+	private static UIAction sentaCliente = new SentaClienteAction();
+	private static UIAction gerarRelatorioGastosLucros = new FazerRelatorioAction();
+	private static UIAction finalizarTurno = new FinalizarTurnoAction();
 
 	private ArrayList< UIAction > acoes;
 	private Funcionario funcionario;
@@ -96,14 +104,24 @@ public class RestaurantInterface
 
 	}
 
+	
+	/**
+	 * Retorna o funcionario associado a conta.
+	 * 
+	 * @return Retorna o funcionario.
+	 */
+	public Funcionario getFuncionario(){
+		return funcionario;
+	}
+	
+	
 	/**
 	 * Executa logout do sistema.
 	 */
 	public void logout ()
 	{
-		valid = false;
 		logged = false;
-		loginAction.execute ();
+		loginAction.execute();
 	}
 
 	/**
@@ -121,7 +139,7 @@ public class RestaurantInterface
 	 */
 	protected void setWrongLogin ()
 	{
-		System.out.println ("ID não identificado ou incorreto.");
+		System.out.println ("\nID não identificado ou incorreto.");
 		loginAction.execute ();
 	}
 
@@ -130,35 +148,27 @@ public class RestaurantInterface
 	 */
 	protected void setAcoesGarcom ()
 	{
-		System.out.println ("Bem Vindo ao restaurante Garçom " + funcionario.getID () + "!!");
-		System.out.println ("Selecione uma das opcoes abaixo:");
-		System.out.println ("[1] - Abrir um pedido");
-		System.out.println ("[2] - Atualizar pedido");
-		System.out.println ("[3] - Fechar uma Mesa");
-		System.out.println ("[4] - Encerrar sessão");
-
-		while (valid == false)
-		{
-			System.out.print ("Informe a opção desejada: ");
-			option = userOption.nextInt ();
-
-			switch (option)
-			{
-
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-
-				case 4:
-					logoutAction.execute ();
-					break;
-				default:
-					System.out.println ("Opcao invalida. Utilize um dos numeros disponiveis no menu.");
-			}
-		}
+		while (option != 4){
+			 System.out.println("\n>>> Bem Vindo ao restaurante Garçom "+funcionario.getID()+"!! <<<");
+			 System.out.println("> Selecione uma das opcoes abaixo:");
+			 System.out.println("[1] - Abrir um pedido (PENDENTE)");
+			 System.out.println("[2] - Atualizar pedido (PENDENTE)");
+			 System.out.println("[3] - Fechar uma Mesa (PENDENTE)");
+			 System.out.println("[4] - Encerrar sessão");
+			 System.out.print("Informe a opção desejada: ");
+			 option = userOption.nextInt();
+				
+			 	switch(option){
+			 	
+			 		case 1: break;
+			 		case 2: break;
+			 		case 3: break;
+			 		
+			 		case 4: logoutAction.execute();
+			 				break;
+			 		default: System.out.println("Opcao invalida. Utilize um dos numeros disponiveis no menu.");
+			 	} 
+			 }
 	}
 
 	/**
@@ -166,33 +176,26 @@ public class RestaurantInterface
 	 */
 	protected void setAcoesCozinheiro ()
 	{
-		System.out.println ("Bem Vindo ao restaurante Cozinheiro " + funcionario.getID () + "!!");
-		System.out.println ("Selecione uma das opcoes abaixo:");
-		System.out.println ("[1] - Iniciar preparacao de pedido");
-		System.out.println ("[2] - Concluir preparacao do pedido");
-		System.out.println ("[3] - Encerrar sessão");
+		 while (option != 3){
+			 System.out.println("\n>>> Bem Vindo ao restaurante Cozinheiro "+funcionario.getID()+"!! <<<");
+			 System.out.println("> Selecione uma das opcoes abaixo:");
+			 System.out.println("[1] - Iniciar preparacao de pedido (PENDENTE)");
+			 System.out.println("[2] - Concluir preparacao do pedido (PENDENTE)");
+			 System.out.println("[3] - Encerrar sessão");
+			 System.out.print("Informe a opção desejada: ");
+			 option = userOption.nextInt();
+				
+			 	switch(option){
+			 	
+			 		case 1: break;
+			 		case 2: break;
+			 		
+			 		case 3: logoutAction.execute();
+	 						break;
+			 		default: System.out.println("Opcao invalida. Utilize um dos numeros disponiveis no menu.");
 
-		while (valid == false)
-		{
-			System.out.print ("Informe a opção desejada: ");
-			option = userOption.nextInt ();
-
-			switch (option)
-			{
-
-				case 1:
-					break;
-				case 2:
-					break;
-
-				case 3:
-					logoutAction.execute ();
-					break;
-				default:
-					System.out.println ("Opcao invalida. Utilize um dos numeros disponiveis no menu.");
-
-			}
-		}
+			 	} 
+		 }
 	}
 
 	/**
@@ -200,44 +203,38 @@ public class RestaurantInterface
 	 */
 	protected void setAcoesGerente ()
 	{
-		System.out.println ("Bem Vindo ao restaurante Gerente " + funcionario.getID () + "!!");
-		System.out.println ("Selecione uma das opcoes abaixo:");
-		System.out.println ("[1] - Iniciar turno");
-		System.out.println ("[2] - Finalizar turno");
-		System.out.println ("[3] - Gerar relatorio de gastos e ganhos de um turno");
-		System.out.println ("[5] - Gerar folha de pagamentos de um turno");
-		System.out.println ("[6] - Gerar relatorio de estoque");
-		System.out.println ("[7] - Encerrar sessão");
-
-		while (valid == false)
-		{
-			System.out.print ("Informe a opção desejada: ");
-			option = userOption.nextInt ();
-
-			switch (option)
-			{
-
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				case 5:
-					break;
-				case 6:
-					break;
-
-				case 7:
-					logout ();
-					break;
-
-				default:
-					System.out.println ("Opcao invalida. Utilize um dos numeros disponiveis no menu.");
-			}
-		}
+		while (option != 6){
+			 System.out.println("\n>>> Bem Vindo ao restaurante Gerente "+funcionario.getID()+"!! <<<");
+			 System.out.println("> Selecione uma das opcoes abaixo:");
+			 System.out.println("[1] - Iniciar turno (PENDENTE)");
+			 System.out.println("[2] - Finalizar turno");
+			 System.out.println("[3] - Gerar relatorio de gastos e ganhos de um turno");
+			 System.out.println("[4] - Gerar folha de pagamentos de um turno (PENDENTE)");
+			 System.out.println("[5] - Gerar relatorio de estoque (PENDENTE)");
+			 System.out.println("[6] - Encerrar sessão");
+			 System.out.print("Informe a opção desejada: ");
+			 option = userOption.nextInt();
+				
+			 	switch(option){
+			 	
+			 		case 1: break;
+			 		
+			 		case 2: finalizarTurno.execute();
+			 				break;
+			 		
+			 		case 3: gerarRelatorioGastosLucros.execute(); 
+			 				break;
+			 		
+			 		case 4: break;
+			 		case 5: break;
+			 		
+			 		case 6: logout();
+	 						break;
+	 				 
+			 	
+			 		default: System.out.println("Opcao invalida. Utilize um dos numeros disponiveis no menu.");
+			 	} 
+			 }
 	}
 
 	/**
@@ -245,37 +242,33 @@ public class RestaurantInterface
 	 */
 	protected void setAcoesAtendente ()
 	{
-		while (option != 4)
-		{
-			System.out.println ("Bem Vindo ao restaurante Atendente " + funcionario.getID () + "!!");
-			System.out.println ("Selecione uma das opcoes abaixo:");
-			System.out.println ("[1] - Sentar um novo cliente");
-			System.out.println ("[2] - Reservar uma mesa");
-			System.out.println ("[3] - Cancelar uma reserva");
-			System.out.println ("[4] - Encerrar sessão");
-			System.out.print ("Informe a opção desejada: ");
-			option = userOption.nextInt ();
-
-			switch (option)
-			{
-
-				case 1:
-					break;
-
-				case 2:
-					reservarMesa.execute ();
-					break;
-
-				case 3:
-					cancelarReserva.execute ();
-					break;
-
-				case 4:
-					logoutAction.execute ();
-					break;
-				default:
-					System.out.println ("Opcao invalida. Utilize um dos numeros disponiveis no menu.");
-			}
+		 while (option != 4)
+		 {
+			 System.out.println("\n>>> Bem Vindo ao restaurante Atendente "+funcionario.getID()+"!! <<<");
+			 System.out.println("> Selecione uma das opcoes abaixo:");
+			 System.out.println("[1] - Sentar um novo cliente");
+			 System.out.println("[2] - Reservar uma mesa");
+			 System.out.println("[3] - Cancelar uma reserva");
+			 System.out.println("[4] - Encerrar sessão");
+			 System.out.print("Informe a opção desejada: ");
+			 option = userOption.nextInt();
+				
+			 	switch(option){
+			 	
+			 		case 1: sentaCliente.execute();
+			 				break;
+			 		
+			 		case 2: reservarMesa.execute();
+			 				break;
+			 				
+			 		case 3: cancelarReserva.execute();
+			 			 	break;
+			 		
+			 		case 4: logoutAction.execute();
+			 				break;
+			 				
+			 		default: System.out.println("Opcao invalida. Utilize um dos numeros disponiveis no menu.");
+			 	} 
 		}
 	}
 
@@ -284,32 +277,28 @@ public class RestaurantInterface
 	 */
 	protected void setAcoesAuxiliar ()
 	{
-		System.out.println ("Bem Vindo ao restaurante Auxiliar de Cozinha " + funcionario.getID () + "!!");
-		System.out.println ("Selecione uma das opcoes abaixo:");
-		System.out.println ("[1] - Visualizar mesas para limpeza");
-		System.out.println ("[2] - Liberar uma mesa para uso");
-		System.out.println ("[3] - Encerrar sessão");
-		while (valid == false)
-		{
-			System.out.print ("Informe a opção desejada: ");
-			option = userOption.nextInt ();
-
-			switch (option)
-			{
-
-				case 1:
-					verMesasSujasAction.execute ();
-					break;
-
-				case 2:
-					break;
-
-				case 3:
-					logoutAction.execute ();
-					break;
-
-				default:
-					System.out.println ("Opcao invalida. Utilize um dos numeros disponiveis no menu.");
+		 while (option != 3)
+		 {
+			 System.out.println("\n>>> Bem Vindo ao restaurante Auxiliar de Cozinha "+funcionario.getID()+"!! <<<");
+			 System.out.println("> Selecione uma das opcoes abaixo:");
+			 System.out.println("[1] - Visualizar mesas para limpeza");
+			 System.out.println("[2] - Liberar uma mesa para uso");
+			 System.out.println("[3] - Encerrar sessão");
+			 System.out.print("Informe a opção desejada: ");
+		     option = userOption.nextInt();
+					
+				 	switch(option){
+				 	
+				 		case 1: verMesasSujasAction.execute();
+				 				break;
+				 		
+				 		case 2: liberaMesa.execute();
+				 				break;
+				 				
+				 		case 3:  logoutAction.execute();
+				 				 break;
+				 				
+				 		default: System.out.println("Opcao invalida. Utilize um dos numeros disponiveis no menu.");
 
 			}
 		}

@@ -28,6 +28,8 @@ import ArchitectureModel.Database;
  */
 public class Turno
 {
+	private String turnoCod;
+	
 	private double custo;
 	private double lucro;
 	private HashMap< Garcom, Setor > garcomSetor;
@@ -41,6 +43,7 @@ public class Turno
 	 */
 	public Turno ()
 	{
+		this.setTurnoCod(turnoCod);
 		custo = 0;
 		lucro = 0;
 		garcomSetor = new HashMap< Garcom, Setor > ();
@@ -238,5 +241,25 @@ public class Turno
 		}
 
 		return folhaPgto;
+	}
+	
+	/**
+	 * Retorna o código do turno.
+	 * 
+	 * @return Retorna o código.
+	 * 
+	 */
+	public String getTurnoCod() {
+		return turnoCod;
+	}
+
+	/**
+	 * Troca o código de um turno.
+	 * 
+	 * @param turnoCod Recebe um String código para atribuir um novo código para o Turno.
+	 * 
+	 */
+	public void setTurnoCod(String turnoCod) {
+		this.turnoCod = turnoCod;
 	}
 }
