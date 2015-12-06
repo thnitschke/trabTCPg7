@@ -115,16 +115,14 @@ public class Mesa
 		this.gorjetaLimpeza = gorjetaLimpeza;
 	}
 
-	
 	/**
 	 * Limpa uma mesa.
-	 * 
 	 */
-	public void limpa(){
+	public void limpa ()
+	{
 		limpa = true;
 	}
-	
-	
+
 	/**
 	 * Associa uma reserva a uma mesa.
 	 * 

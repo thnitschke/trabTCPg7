@@ -20,6 +20,7 @@ import domainModel.Turno;
  * entendimento de cada método, visualize a classe que implementa esta Interface
  * (RestaurantOperationServiceImpl).
  * 
+ * @see RestaurantOperationServiceImpl
  * @author Rodrigo Okido (trabTCPg7)
  * @version 1.0
  */
@@ -56,23 +57,25 @@ public interface RestaurantOperationService
 
 	public ArrayList< Item > getCardapio ();
 
-	public void criaPedido (Mesa mesa, Pedido pedido);
+	public void criaPedido (Garcom garcom, Mesa mesa, ArrayList< Item > itensPedidos);
 
-	public double getPrecoPedido (Mesa mesa);
+	public double getPrecoPedido (Mesa mesa) throws SemTurnoAtivoException;
 
-	public void fechaMesa (Mesa mesa, boolean aceita);
+	public void fechaMesa (Mesa mesa, boolean aceita) throws SemTurnoAtivoException;
 
 	public ArrayList< Garcom > getGarcons ();
 
 	public ArrayList< Setor > getSetores ();
 
-	public void setGarconsSetor (HashMap< ArrayList< Garcom >, Setor > garcomSetor);
+	public void setGarconsSetor (HashMap< Garcom, Setor > disposicao);
 
 	public boolean verificaMesasFechadas ();
 
 	public void retirarTurnoAtivo ();
 
 	public void finalizarPedido (Pedido pedido);
+
+	public void criaTurnoAtivo ();
 
 	public ArrayList< Turno > getTurno ();
 

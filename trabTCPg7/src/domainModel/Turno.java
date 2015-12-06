@@ -3,7 +3,6 @@ package domainModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import ArchitectureModel.Database;
 
 /**
@@ -29,7 +28,6 @@ import ArchitectureModel.Database;
 public class Turno
 {
 	private String turnoCod;
-	
 	private double custo;
 	private double lucro;
 	private HashMap< Garcom, Setor > garcomSetor;
@@ -43,7 +41,6 @@ public class Turno
 	 */
 	public Turno ()
 	{
-		this.setTurnoCod(turnoCod);
 		custo = 0;
 		lucro = 0;
 		garcomSetor = new HashMap< Garcom, Setor > ();
@@ -215,7 +212,7 @@ public class Turno
 	 * 
 	 * @author thnitschke
 	 * @return Map com o salário final de todos funcionários participantes
-	 * do Turno.
+	 *         do Turno.
 	 */
 	public HashMap< Funcionario, Double > getFolhaPgto ()
 	{
@@ -228,7 +225,7 @@ public class Turno
 		{
 			Funcionario funcionario = (Funcionario) iterator.next ();
 			salario = todosSalarios.get (funcionario.getClass ().getSimpleName ());
-			
+
 			if (gorjetas.containsKey (funcionario))
 			{
 				Double gorjeta = gorjetas.get (funcionario);
@@ -242,24 +239,38 @@ public class Turno
 
 		return folhaPgto;
 	}
-	
+
 	/**
 	 * Retorna o código do turno.
 	 * 
 	 * @return Retorna o código.
-	 * 
 	 */
-	public String getTurnoCod() {
+	public String getTurnoCod ()
+	{
 		return turnoCod;
 	}
 
 	/**
 	 * Troca o código de um turno.
 	 * 
-	 * @param turnoCod Recebe um String código para atribuir um novo código para o Turno.
-	 * 
+	 * @param turnoCod
+	 *                Recebe um String código para atribuir um novo código
+	 *                para o Turno.
 	 */
-	public void setTurnoCod(String turnoCod) {
+	public void setTurnoCod (String turnoCod)
+	{
 		this.turnoCod = turnoCod;
+	}
+
+	/**
+	 * Remove pedido da lista de pedidos do turno.
+	 * 
+	 * @author thnitschke
+	 * @version 1.0
+	 * @param pedido
+	 */
+	public void removePedido (Pedido pedido)
+	{
+		pedidos.remove (pedido);
 	}
 }

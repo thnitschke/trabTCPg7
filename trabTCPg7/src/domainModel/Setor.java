@@ -37,6 +37,21 @@ public class Setor
 	}
 
 	/**
+	 * (NEW) Método para adicionar objeto Mesa ao Setor durante a criação do
+	 * mesmo. Caso contrário não se poderia adicionar objetos Mesa de modo
+	 * que não ferisse o padrão da POO.
+	 * 
+	 * @author thnitschke
+	 * @version 1.0
+	 * @param Objeto
+	 *                Mesa a ser adicionado ao Setor.
+	 */
+	public void addMesa (Mesa mesa)
+	{
+		mesas.add (mesa);
+	}
+
+	/**
 	 * Retorna o nome do setor.
 	 * 
 	 * @return O nome.

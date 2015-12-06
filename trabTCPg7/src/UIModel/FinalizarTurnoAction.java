@@ -12,15 +12,17 @@ public class FinalizarTurnoAction extends UIAction
 	/**
 	 * Método de execução da action de finalizar um turno.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
-		boolean mesasFechadas = operationService.verificaMesasFechadas();
-		
-		if (mesasFechadas == true){
-			operationService.retirarTurnoAtivo();
-		} else {
-			System.out.println("\n--- Todas as mesas não estão fechadas. Não é possivel encerrar turno. ---");
+		boolean mesasFechadas = operationService.verificaMesasFechadas ();
+
+		if (mesasFechadas == true)
+		{
+			operationService.retirarTurnoAtivo ();
+		}
+		else
+		{
+			System.out.println ("\n--- Todas as mesas não estão fechadas. Não é possivel encerrar turno. ---");
 		}
 
 	}

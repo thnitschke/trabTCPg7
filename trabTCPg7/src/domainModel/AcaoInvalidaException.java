@@ -18,7 +18,7 @@ public class AcaoInvalidaException extends Exception
 	 * Construtor da exceção AcaoInvalidaException.
 	 * 
 	 * @param message
-	 *            Recebe a mensagem que será exibida.
+	 *                Recebe a mensagem que será exibida.
 	 */
 	public AcaoInvalidaException (final String message)
 	{

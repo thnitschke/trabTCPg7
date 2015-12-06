@@ -13,31 +13,29 @@ import domainModel.Mesa;
 public class VisualizaMesasSujasAction extends UIAction
 {
 
-	
 	/**
-	 * Método de execução da action de visualizar as mesas sujas do restaurante.
-	 * 
+	 * Método de execução da action de visualizar as mesas sujas do
+	 * restaurante.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
-		ArrayList<Mesa> mesasSujas = operationService.getMesasSujas();
-		
-		if(mesasSujas.isEmpty())
+		ArrayList< Mesa > mesasSujas = operationService.getMesasSujas ();
+
+		if (mesasSujas.isEmpty ())
 		{
-			System.out.println("\n >>--- Todas as mesas do restaurante se encontram limpas! ---<< \n");
-		} 
-		else 
-		{
-			System.out.println("\n >>--- Mesas sujas do restaurante (Setor / CodigoMesa) ---<< \n");
-			for (int m = 0; m < mesasSujas.size(); m++) 
-			{
-				System.out.println(mesasSujas.get(m).getSetor().getNome()+" / "+mesasSujas.get(m).getCodigoMesa());
-				
-			}
-			
+			System.out.println ("\n >>--- Todas as mesas do restaurante se encontram limpas! ---<< \n");
 		}
-		
+		else
+		{
+			System.out.println ("\n >>--- Mesas sujas do restaurante (Setor / CodigoMesa) ---<< \n");
+			for (int m = 0; m < mesasSujas.size (); m++)
+			{
+				System.out.println (mesasSujas.get (m).getSetor ().getNome () + " / " + mesasSujas.get (m).getCodigoMesa ());
+
+			}
+
+		}
+
 	}
-	
+
 }

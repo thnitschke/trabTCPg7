@@ -18,7 +18,7 @@ public class SemTurnoAtivoException extends Exception
 	 * Construtor da exceção SemTurnoAtivoException.
 	 * 
 	 * @param message
-	 *            Recebe a mensagem que será exibida.
+	 *                Recebe a mensagem que será exibida.
 	 */
 	public SemTurnoAtivoException (final String message)
 	{

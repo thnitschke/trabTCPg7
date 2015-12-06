@@ -13,7 +13,7 @@ public class Gerente extends Funcionario
 	 * Construtor de um Gerente.
 	 * 
 	 * @param id
-	 *            Recebe um String id.
+	 *                Recebe um String id.
 	 */
 	public Gerente (String id)
 	{

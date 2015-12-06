@@ -1,6 +1,5 @@
 package domainModel;
 
-
 /**
  * Classe Ingrediente.
  * 
@@ -11,37 +10,32 @@ public class Ingrediente
 {
 	private String nome;
 
-	
 	/**
 	 * Construtor da classe Ingrediente.
 	 * 
-	 * @param nome Recebe um String para atribuir um nome ao ingrediente.
-	 * 
+	 * @param nome
+	 *                Recebe um String para atribuir um nome ao ingrediente.
 	 */
-	public Ingrediente(String nome){
+	public Ingrediente (String nome)
+	{
 		this.nome = nome;
 	}
-	
-	
-	
+
 	/**
 	 * Retorna o nome do ingrediente.
 	 * 
 	 * @return Retorna o nome.
-	 *
 	 */
 	public String getNome ()
 	{
 		return nome;
 	}
 
-	
-	
 	/**
 	 * Modifica o nome do Ingrediente.
 	 * 
-	 * @param nome Recebe um String nome para efetuar a modificação.
-	 * 
+	 * @param nome
+	 *                Recebe um String nome para efetuar a modificação.
 	 */
 	public void setNome (String nome)
 	{

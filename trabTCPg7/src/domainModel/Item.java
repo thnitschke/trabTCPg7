@@ -11,6 +11,7 @@ import java.util.HashMap;
  */
 public class Item
 {
+	private String nome;
 	private double preco;
 	private String categoria;
 	private double custo;
@@ -36,13 +37,24 @@ public class Item
 	 * @param receita
 	 *                (NEW) Define a receita do item (Receita).
 	 */
-	public Item (double preco, String categ, double custo, double tempo, Receita receita)
+	public Item (String nome, double preco, String categ, double custo, double tempo, Receita receita)
 	{
+		this.nome = nome;
 		this.preco = preco;
 		categoria = categ;
 		this.custo = custo;
 		this.receita = receita;	// (NEW)
 		this.tempo = tempo;
+	}
+
+	/**
+	 * Retorna o nome do item.
+	 * 
+	 * @return Retorna o nome.
+	 */
+	public String getNome ()
+	{
+		return nome;
 	}
 
 	/**

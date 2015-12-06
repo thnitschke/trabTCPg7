@@ -19,6 +19,7 @@ public class Pedido
 	private Estado estado;
 	private Garcom garcom;
 	// Remoção do atributo listItens, não é preciso.
+	private String cod;
 
 	/**
 	 * Construtor de Pedido. MODIFICADO!
@@ -34,6 +35,7 @@ public class Pedido
 	{
 		this.garcom = garcom;
 		this.mesa = mesa;
+		itens = new ArrayList< ItemPedido > ();
 		estado = Estado.PENDENTE;
 	}
 
@@ -123,6 +125,29 @@ public class Pedido
 	 */
 	public double getPreco ()
 	{
+		double precoTotal = 0;
+
+		// Pega cada objeto do tipo item. Verifica seu preco e soma
+		// ao valor total
+		for (int i = 0; i < itens.size (); i++)
+		{
+			ItemPedido pedido = itens.get (i);
+			Item prato = pedido.getItem ();
+			precoTotal = precoTotal + prato.getPreco ();
+		}
+
+		return precoTotal;
+	}
+
+	/**
+	 * Retorna o custo total de todos os pedidos solicitados pelo cliente.
+	 * 
+	 * @author thnitschke
+	 * @version 1.0
+	 * @return Retorna o preço total dos pedidos.
+	 */
+	public double getCusto ()
+	{
 		double custoTotal = 0;
 
 		// Pega cada objeto do tipo item. Verifica seu custo e soma
@@ -131,26 +156,27 @@ public class Pedido
 		{
 			ItemPedido pedido = itens.get (i);
 			Item prato = pedido.getItem ();
-			custoTotal = custoTotal + prato.getPreco ();
+			custoTotal = custoTotal + prato.getCusto ();
 		}
 
 		return custoTotal;
 	}
 
 	/**
-	 * Adiciona uma lista de pedidos a partir de um pedido.
+	 * (MOD) Adiciona uma lista de Item à lista de ItemPedido do Pedido.
 	 * 
+	 * @author RodrigoOkido, thnitschke
+	 * @version 1.1
 	 * @param pedido
 	 *                Recebe um pedido por parâmetro.
 	 */
-	public void addItens (Pedido pedido)
+	public void addItens (ArrayList< Item > itensPedidos)
 	{
-		ArrayList< Item > list = pedido.getListItems ();
-		for (int item = 0; item < list.size (); item++)
+		for (Iterator< Item > iterator = itensPedidos.iterator (); iterator.hasNext ();)
 		{
-			adicionaItem (list.get (item));
+			Item item = (Item) iterator.next ();
+			adicionaItem (item);
 		}
-
 	}
 
 	/**
@@ -216,5 +242,15 @@ public class Pedido
 		}
 
 		return true;
+	}
+
+	public String getCod ()
+	{
+		return cod;
+	}
+
+	public void setCod (String cod)
+	{
+		this.cod = cod;
 	}
 }

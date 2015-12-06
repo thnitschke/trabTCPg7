@@ -14,30 +14,34 @@ public class FazerRelatorioAction extends UIAction
 {
 
 	/**
-	 * Método de execução da action de fazer um relatório de um determinado turno.
-	 * 
+	 * Método de execução da action de fazer um relatório de um determinado
+	 * turno.
 	 */
-	@Override
-	public void execute ()
+	@Override public void execute ()
 	{
-		ArrayList<Turno> listaTurnos = operationService.getTurno();
-		
-		if (listaTurnos.isEmpty()){
-			System.out.println("\n--- Não existe nenhum histórico de turno armazenado no momento. ---");
-		} else{
-			System.out.print("> Escolha o turno desejado (código do turno)");
-			String turnoDesejado = someInput.next();
-			
-			for (int turno = 0; turno < listaTurnos.size(); turno++) {
-				Turno check = listaTurnos.get(turno);
-				if(check.getTurnoCod().equals(turnoDesejado)){
-					System.out.println("\n> Lucro obtido no turno: "+check.getSomaLucros());
-					System.out.println("> Custo/Despesas obtido no turno: "+check.getSomaCustos());
+		ArrayList< Turno > listaTurnos = operationService.getTurno ();
+
+		if (listaTurnos.isEmpty ())
+		{
+			System.out.println ("\n--- Não existe nenhum histórico de turno armazenado no momento. ---");
+		}
+		else
+		{
+			System.out.print ("> Escolha o turno desejado (código do turno)");
+			String turnoDesejado = someInput.next ();
+
+			for (int turno = 0; turno < listaTurnos.size (); turno++)
+			{
+				Turno check = listaTurnos.get (turno);
+				if (check.getTurnoCod ().equals (turnoDesejado))
+				{
+					System.out.println ("\n> Lucro obtido no turno: " + check.getSomaLucros ());
+					System.out.println ("> Custo/Despesas obtido no turno: " + check.getSomaCustos ());
 					return;
 				}
 			}
-			
-			System.out.println("\n--- Não foi encontrado o turno desejado. ---");
+
+			System.out.println ("\n--- Não foi encontrado o turno desejado. ---");
 		}
 	}
 }

@@ -58,7 +58,8 @@ public class Database
 	 */
 	private Database ()
 	{
-		listaTurnos = new ArrayList<>();
+		listaTurnos = new ArrayList< Turno > ();
+		turnoAtivo = null;
 		listaFuncionarios = new ArrayList< Funcionario > ();
 		listaSetores = new ArrayList< Setor > ();
 		loadRestaurantData ();
@@ -95,11 +96,9 @@ public class Database
 		if (turnoAtivo != null)
 			return turnoAtivo;
 		else
-			throw new SemTurnoAtivoException("Não há turno ativo!");
+			throw new SemTurnoAtivoException ("Não há turno ativo!");
 	}
 
-	
-	
 	/**
 	 * Pesquisa se existe algum funcionário com o id recebido por parâmetro.
 	 * Caso positivo ele retorna o funcionario, caso contrario retorna null.
@@ -110,9 +109,9 @@ public class Database
 	 */
 	public Funcionario getFuncionario (String id)
 	{
-		for (int funcionario = 0; funcionario < getListaFuncionarios ().size (); funcionario++)
+		for (int funcionario = 0; funcionario < listaFuncionarios.size (); funcionario++)
 		{
-			Funcionario check = getListaFuncionarios ().get (funcionario);
+			Funcionario check = listaFuncionarios.get (funcionario);
 			if (id.equals (check.getID ()))
 			{
 				return check;
@@ -121,8 +120,6 @@ public class Database
 		return null;
 	}
 
-	
-	
 	/**
 	 * Retorna a lista de mesas de um determinado setor dado por parâmetro.
 	 * 
@@ -155,16 +152,17 @@ public class Database
 	}
 
 	/**
-	 * (NEW) Atualiza despensa, retirando a quantidade exata de Ingredientes da
-	 * receita passada como parâmetro.
+	 * (NEW) Atualiza despensa, retirando a quantidade exata de Ingredientes
+	 * da receita passada como parâmetro.
+	 * 
 	 * @author thnitschke
 	 * @version 1.0
-	 * 
 	 * @param receita
 	 */
 	public void atualizaDespensa (Receita receita)
 	{
 		HashMap< Ingrediente, Double > ingredientes = receita.getIngredientes ();
+
 		for (Iterator< Ingrediente > iterator = ingredientes.keySet ().iterator (); iterator.hasNext ();)
 		{
 			Ingrediente ingrediente = (Ingrediente) iterator.next ();
@@ -172,6 +170,45 @@ public class Database
 			Double retirar = ingredientes.get (ingrediente);
 			despensa.put (ingrediente, quantidade - retirar);
 		}
+	}
+
+	/**
+	 * (NEW) Consulta a despensa, verifica se há o suficiente de
+	 * ingredientes para realizar-se a receita, se houver, retorna true;
+	 * senão retorna false, e zera-se a quantidade de ingredientes daquele
+	 * tipo em estoque.
+	 * 
+	 * @author thnitschke
+	 * @version 1.0
+	 * @param receita
+	 */
+	public boolean existeSuficienteParaReceita (Receita receita)
+	{
+		boolean ehSuficiente = true;
+		HashMap< Ingrediente, Double > ingredientes = receita.getIngredientes ();
+
+		for (Iterator< Ingrediente > iterator = ingredientes.keySet ().iterator (); iterator.hasNext ();)
+		{
+			Ingrediente ingrediente = (Ingrediente) iterator.next ();
+			Double quantidade = despensa.get (ingrediente);
+			Double retirar = ingredientes.get (ingrediente);
+			if (quantidade >= retirar)
+				continue;
+			else
+			{
+				/**
+				 * Decisão de desenvolvedor: Se não há o
+				 * suficiente para se cozinhar algo, zera-se a
+				 * quantidade em estoque, para ser possível
+				 * consultar ingredientes em falta de modo
+				 * simples posteriormente.
+				 */
+				despensa.put (ingrediente, Double.valueOf (0));
+				ehSuficiente = false;
+			}
+		}
+
+		return ehSuficiente;
 	}
 
 	/**
@@ -207,17 +244,43 @@ public class Database
 	/**
 	 * Armazena um turno encerrado dentro da lista de turnos.
 	 * 
-	 * @param turno Recebe um turno encerrado.
-	 * 
+	 * @param turno
+	 *                Recebe um turno encerrado.
 	 */
 	public void armazenaTurnoAtivo (Turno turno)
 	{
-		listaTurnos.add(turno);
+		listaTurnos.add (turno);
+		turnoAtivo = null;
 	}
 
 	public ArrayList< Ingrediente > getFaltaEstoque ()
 	{
-		return null;
+		ArrayList< Ingrediente > ingredientesEmFalta = new ArrayList< Ingrediente > ();
+
+		for (Iterator< Ingrediente > iterator = despensa.keySet ().iterator (); iterator.hasNext ();)
+		{
+			Ingrediente ingrediente = (Ingrediente) iterator.next ();
+			if (getQuantidadeIngrediente (ingrediente) == 0)
+				ingredientesEmFalta.add (ingrediente);
+			else
+				continue;
+		}
+
+		return ingredientesEmFalta;
+	}
+
+	/**
+	 * (NEW) Retorna quantidade em double do Ingrediente passado como
+	 * parâmetro.
+	 * 
+	 * @author thnitschke
+	 * @version 1.0
+	 * @param ingrediente
+	 * @return quantidade do ingrediente em double
+	 */
+	public double getQuantidadeIngrediente (Ingrediente ingrediente)
+	{
+		return despensa.get (ingrediente).doubleValue ();
 	}
 
 	/**
@@ -242,26 +305,34 @@ public class Database
 	}
 
 	/**
-	 * INICIALIZA OS DADOS DO RESTAURANTE TODO.
+	 * @author thnitschke
+	 */
+	public void criaTurnoAtivo ()
+	{
+		turnoAtivo = new Turno ();
+	}
+
+	/**
+	 * INICIALIZA OS DADOS DO RESTAURANTE.
 	 */
 	public void loadRestaurantData ()
 	{
 
 		// INICIALIZANDO FUNCIONARIOS DO RESTAURANTE
 		Funcionario gr1 = new Gerente ("GR000");
-		getListaFuncionarios ().add (gr1);
+		listaFuncionarios.add (gr1);
 		Funcionario at1 = new Atendente ("AT000");
-		getListaFuncionarios ().add (at1);
+		listaFuncionarios.add (at1);
 		Funcionario aa1 = new AuxiliarCozinha ("AC000");
-		getListaFuncionarios ().add (aa1);
+		listaFuncionarios.add (aa1);
 		Funcionario co1 = new Cozinheiro ("C000");
-		getListaFuncionarios ().add (co1);
+		listaFuncionarios.add (co1);
 		Funcionario g1 = new Garcom ("G000");
-		getListaFuncionarios ().add (g1);
+		listaFuncionarios.add (g1);
 		Funcionario g2 = new Garcom ("G001");
-		getListaFuncionarios ().add (g2);
+		listaFuncionarios.add (g2);
 		Funcionario g3 = new Garcom ("G002");
-		getListaFuncionarios ().add (g3);
+		listaFuncionarios.add (g3);
 
 		// INCIALIZANDO SETORES DO RESTAURANTE
 		Setor se1 = new Setor ("Azul");
@@ -278,81 +349,81 @@ public class Database
 		// INICIALIZANDO MESAS E ADICIONANDO CADA MESA
 		// NA LISTA DE SETOR CORRESPONDENTE
 		Mesa m1s1 = new Mesa (se1, 5, "S1M01");
-		se1.getMesas ().add (m1s1);
+		se1.addMesa (m1s1);
 		Mesa m2s1 = new Mesa (se1, 4, "S1M02");
-		se1.getMesas ().add (m2s1);
+		se1.addMesa (m2s1);
 		Mesa m3s1 = new Mesa (se1, 4, "S1M03");
-		se1.getMesas ().add (m3s1);
+		se1.addMesa (m3s1);
 		Mesa m4s1 = new Mesa (se1, 2, "S1M04");
-		se1.getMesas ().add (m4s1);
+		se1.addMesa (m4s1);
 		Mesa m5s1 = new Mesa (se1, 2, "S1M05");
-		se1.getMesas ().add (m5s1);
+		se1.addMesa (m5s1);
 		Mesa m6s1 = new Mesa (se1, 5, "S1M06");
-		se1.getMesas ().add (m6s1);
+		se1.addMesa (m6s1);
 
 		Mesa m1s2 = new Mesa (se2, 3, "S2M01");
-		se2.getMesas ().add (m1s2);
+		se2.addMesa (m1s2);
 		Mesa m2s2 = new Mesa (se2, 2, "S2M02");
-		se2.getMesas ().add (m2s2);
+		se2.addMesa (m2s2);
 		Mesa m3s2 = new Mesa (se2, 2, "S2M03");
-		se2.getMesas ().add (m3s2);
+		se2.addMesa (m3s2);
 		Mesa m4s2 = new Mesa (se2, 2, "S2M04");
-		se2.getMesas ().add (m4s2);
+		se2.addMesa (m4s2);
 
 		Mesa m1s3 = new Mesa (se3, 8, "S3M01");
-		se3.getMesas ().add (m1s3);
+		se3.addMesa (m1s3);
 		Mesa m2s3 = new Mesa (se3, 4, "S3M02");
-		se3.getMesas ().add (m2s3);
+		se3.addMesa (m2s3);
 		Mesa m3s3 = new Mesa (se3, 4, "S3M03");
-		se3.getMesas ().add (m3s3);
+		se3.addMesa (m3s3);
 		Mesa m4s3 = new Mesa (se3, 4, "S3M04");
-		se3.getMesas ().add (m4s3);
+		se3.addMesa (m4s3);
 		Mesa m5s3 = new Mesa (se3, 4, "S3M05");
-		se3.getMesas ().add (m5s3);
+		se3.addMesa (m5s3);
 		Mesa m6s3 = new Mesa (se3, 6, "S3M06");
-		se3.getMesas ().add (m6s3);
+		se3.addMesa (m6s3);
 		Mesa m7s3 = new Mesa (se3, 6, "S3M07");
-		se3.getMesas ().add (m7s3);
+		se3.addMesa (m7s3);
 		Mesa m8s3 = new Mesa (se3, 2, "S3M08");
-		se3.getMesas ().add (m8s3);
+		se3.addMesa (m8s3);
 		Mesa m9s3 = new Mesa (se3, 2, "S3M09");
-		se3.getMesas ().add (m9s3);
+		se3.addMesa (m9s3);
 
 		Mesa m1s4 = new Mesa (se4, 10, "S4M01");
-		se4.getMesas ().add (m1s4);
+		se4.addMesa (m1s4);
 		Mesa m2s4 = new Mesa (se4, 3, "S4M02");
-		se4.getMesas ().add (m2s4);
+		se4.addMesa (m2s4);
 		Mesa m3s4 = new Mesa (se4, 3, "S4M03");
-		se4.getMesas ().add (m3s4);
+		se4.addMesa (m3s4);
 		Mesa m4s4 = new Mesa (se4, 3, "S4M04");
-		se4.getMesas ().add (m4s4);
+		se4.addMesa (m4s4);
 		Mesa m5s4 = new Mesa (se4, 4, "S4M05");
-		se4.getMesas ().add (m5s4);
+		se4.addMesa (m5s4);
 		Mesa m6s4 = new Mesa (se4, 4, "S4M06");
-		se4.getMesas ().add (m6s4);
+		se4.addMesa (m6s4);
 		Mesa m7s4 = new Mesa (se4, 5, "S4M07");
-		se4.getMesas ().add (m7s4);
+		se4.addMesa (m7s4);
 		Mesa m8s4 = new Mesa (se4, 5, "S4M08");
-		se4.getMesas ().add (m8s4);
+		se4.addMesa (m8s4);
 		Mesa m9s4 = new Mesa (se4, 5, "S4M09");
-		se4.getMesas ().add (m9s4);
+		se4.addMesa (m9s4);
 		Mesa m10s4 = new Mesa (se4, 6, "S4M10");
-		se4.getMesas ().add (m10s4);
+		se4.addMesa (m10s4);
 		Mesa m11s4 = new Mesa (se4, 6, "S4M11");
-		se4.getMesas ().add (m11s4);
+		se4.addMesa (m11s4);
 
 		Mesa m1s5 = new Mesa (se5, 5, "S5M01");
-		se5.getMesas ().add (m1s5);
+		se5.addMesa (m1s5);
 		Mesa m2s5 = new Mesa (se5, 3, "S5M02");
-		se5.getMesas ().add (m2s5);
+		se5.addMesa (m2s5);
 		Mesa m3s5 = new Mesa (se5, 3, "S5M03");
-		se5.getMesas ().add (m3s5);
+		se5.addMesa (m3s5);
 		Mesa m4s5 = new Mesa (se5, 3, "S5M04");
-		se5.getMesas ().add (m4s5);
+		se5.addMesa (m4s5);
 		Mesa m5s5 = new Mesa (se5, 3, "S5M05");
-		se5.getMesas ().add (m5s5);
+		se5.addMesa (m5s5);
 		Mesa m6s5 = new Mesa (se5, 3, "S5M06");
-		se5.getMesas ().add (m6s5);
+		se5.addMesa (m6s5);
 
 	}
 }

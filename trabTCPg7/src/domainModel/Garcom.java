@@ -13,7 +13,7 @@ public class Garcom extends Funcionario
 	 * Construtor de um Garcom.
 	 * 
 	 * @param id
-	 *            Recebe um String id.
+	 *                Recebe um String id.
 	 */
 	public Garcom (String id)
 	{

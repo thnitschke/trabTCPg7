@@ -1,10 +1,15 @@
 package UIModel;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import domainModel.Pedido;
+
 /**
  * Classe Action IniciarPreparacaoAction. Extende a classe abstrata UIAction.
  * 
- * @author Rodrigo Okido (trabTCPg7)
- * @version 1.0
+ * @author thnitschke
+ * @version 1.1
  */
 public class IniciarPreparacaoAction extends UIAction
 {
@@ -14,8 +19,36 @@ public class IniciarPreparacaoAction extends UIAction
 	 */
 	@Override public void execute ()
 	{
-		// TODO Auto-generated method stub
+		ArrayList< Pedido > pedidosPendentes = operationService.getPedidosPendentes ();
 
+		System.out.println ("Lista de pedidos pendentes, favor escolher pedido e inserir seu código abaixo:");
+		for (Iterator< Pedido > iterator = pedidosPendentes.iterator (); iterator.hasNext ();)
+		{
+			Pedido pedido = (Pedido) iterator.next ();
+			System.out.println ("\t- Pedido: " + pedido.getCod ());
+		}
+
+		Pedido pedidoAserPreparado = null;
+		while (true)
+		{
+			String codPedido = someInput.next ();
+			for (Iterator< Pedido > iterator = pedidosPendentes.iterator (); iterator.hasNext ();)
+			{
+				Pedido pedido = (Pedido) iterator.next ();
+				if (pedido.getCod ().equalsIgnoreCase (codPedido))
+					pedidoAserPreparado = pedido;
+				else
+					continue;
+			}
+			if (pedidoAserPreparado != null)
+				break;
+			else
+			{
+				System.out.println ("Nenhum pedido a ser preparado com este código de pedido existe. Favor inserir novamente.");
+				continue;
+			}
+		}
+
+		operationService.prepararItens (pedidoAserPreparado, pedidoAserPreparado.getListItems ());
 	}
-
 }

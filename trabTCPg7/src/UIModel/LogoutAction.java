@@ -16,5 +16,4 @@ public class LogoutAction extends UIAction
 	{
 		interf.logout ();
 	}
-
 }
