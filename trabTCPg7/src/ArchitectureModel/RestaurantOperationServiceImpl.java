@@ -96,6 +96,10 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 			ativo = database.getTurnoAtivo ();
 			Setor setor = ativo.getSetor (garcom);
 			ArrayList< Mesa > mesasSetor = database.getMesas (setor);
+			if (mesasSetor == null){
+				System.out.println("\n>>--- Lista de mesas vazia no setor solicitado ---<< \n");
+			} else {
+			
 			mesasFiltradas = new ArrayList< Mesa > ();
 
 			for (Iterator< Mesa > iterator = mesasSetor.iterator (); iterator.hasNext ();)
@@ -106,12 +110,14 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 				else
 					continue;
 			}
+			}
 		}
+			
 		catch (SemTurnoAtivoException e)
 		{
 			System.out.println (e.getMessage ());
 		}
-
+			
 		return mesasFiltradas;
 	}
 
@@ -214,6 +220,9 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 		{
 			ativo = database.getTurnoAtivo ();
 			Setor setor = ativo.getSetor (garcom);
+			if(setor == null){
+				System.out.println("Não foi possivel encontrar o setor.");
+			} else{
 			ArrayList< Mesa > mesasSetor = database.getMesas (setor);
 			mesasFiltradas = new ArrayList< Mesa > ();
 
@@ -224,6 +233,7 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 					mesasFiltradas.add (mesa);
 				else
 					continue;
+			}
 			}
 		}
 		catch (SemTurnoAtivoException e)
