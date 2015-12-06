@@ -20,26 +20,29 @@ public class FinalizarPreparacaoAction extends UIAction
 	@Override public void execute ()
 	{
 		ArrayList< Pedido > pedidos = operationService.getPedidosPendentes ();
-
-		System.out.println ("Lista de pedidos para serem finalizados, favor escolher pedido e inserir seu código abaixo:");
-		for (Iterator< Pedido > iterator = pedidos.iterator (); iterator.hasNext ();)
-		{
-			Pedido pedido = (Pedido) iterator.next ();
-			System.out.println ("\t- Pedido: " + pedido.getCod ());
-		}
-
-		Pedido pedidoAserFinalizado = null;
-		while (true)
-		{
-			String codPedido = someInput.next ();
+		
+		if(pedidos.isEmpty()){
+			System.out.println("...");
+		} else{
+			System.out.println ("Lista de pedidos para serem finalizados, favor escolher pedido e inserir seu código abaixo:");
 			for (Iterator< Pedido > iterator = pedidos.iterator (); iterator.hasNext ();)
 			{
 				Pedido pedido = (Pedido) iterator.next ();
-				if (pedido.getCod ().equalsIgnoreCase (codPedido))
-					pedidoAserFinalizado = pedido;
-				else
-					continue;
+				System.out.println ("\t- Pedido: " + pedido.getCod ());
 			}
+
+			Pedido pedidoAserFinalizado = null;
+			while (true)
+			{
+				String codPedido = someInput.next ();
+				for (Iterator< Pedido > iterator = pedidos.iterator (); iterator.hasNext ();)
+				{
+					Pedido pedido = (Pedido) iterator.next ();
+					if (pedido.getCod ().equalsIgnoreCase (codPedido))
+						pedidoAserFinalizado = pedido;
+					else
+						continue;
+				}
 			if (pedidoAserFinalizado != null)
 				break;
 			else
@@ -50,5 +53,5 @@ public class FinalizarPreparacaoAction extends UIAction
 		}
 
 		operationService.finalizarPedido (pedidoAserFinalizado);
-	}
+	}}
 }

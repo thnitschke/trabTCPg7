@@ -552,6 +552,7 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 		{
 			turnoEncerrado = database.getTurnoAtivo ();
 			database.armazenaTurnoAtivo (turnoEncerrado);
+			System.out.println ("\n>>--- Turno atual encerrado com sucesso!! ---<< \n");
 		}
 		catch (SemTurnoAtivoException e)
 		{

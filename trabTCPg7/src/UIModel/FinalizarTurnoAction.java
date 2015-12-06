@@ -19,7 +19,7 @@ public class FinalizarTurnoAction extends UIAction
 		if (mesasFechadas == true)
 		{
 			operationService.retirarTurnoAtivo ();
-			System.out.println ("\n>>--- Turno atual encerrado com sucesso!! ---<< \n");
+			
 		}
 		else
 		{

@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-
 import org.junit.Test;
 
+import UIModel.FinalizarTurnoAction;
 import domainModel.Atendente;
 import domainModel.AuxiliarCozinha;
 import domainModel.Cozinheiro;
@@ -14,6 +14,7 @@ import domainModel.Funcionario;
 import domainModel.Garcom;
 import domainModel.Gerente;
 import domainModel.Mesa;
+import domainModel.SemTurnoAtivoException;
 import domainModel.Setor;
 
 public class TestCases {
@@ -28,6 +29,8 @@ public class TestCases {
 	Setor s2 = new Setor("Laranja");
 	Mesa m1 = new Mesa(s, 2, "M01");
 	Mesa m2 = new Mesa(s2, 2, "M01");
+	
+	FinalizarTurnoAction senta = new FinalizarTurnoAction();
 	
 	ArrayList<Funcionario> list = new ArrayList<>(); 
 	ArrayList<Setor> setor = new ArrayList<>();
@@ -55,7 +58,11 @@ public class TestCases {
 	@Test
 	public void testAddSetores() {
 		assertEquals(setor.add(s),true);
-		assertEquals(setor.add(s),true);
+		assertEquals(setor.add(s2),true);
 	}
 
+	@Test (expected=SemTurnoAtivoException.class)
+	public void testingException () throws Exception{
+		senta.execute();
+	}
 }

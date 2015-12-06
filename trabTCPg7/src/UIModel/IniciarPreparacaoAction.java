@@ -20,26 +20,29 @@ public class IniciarPreparacaoAction extends UIAction
 	@Override public void execute ()
 	{
 		ArrayList< Pedido > pedidosPendentes = operationService.getPedidosPendentes ();
-
-		System.out.println ("Lista de pedidos pendentes, favor escolher pedido e inserir seu código abaixo:");
-		for (Iterator< Pedido > iterator = pedidosPendentes.iterator (); iterator.hasNext ();)
-		{
-			Pedido pedido = (Pedido) iterator.next ();
-			System.out.println ("\t- Pedido: " + pedido.getCod ());
-		}
-
-		Pedido pedidoAserPreparado = null;
-		while (true)
-		{
-			String codPedido = someInput.next ();
+		if (pedidosPendentes.isEmpty()){
+			System.out.println("Não há pedidos para iniciar...");
+		} else{
+		
+			System.out.println ("Lista de pedidos pendentes, favor escolher pedido e inserir seu código abaixo:");
 			for (Iterator< Pedido > iterator = pedidosPendentes.iterator (); iterator.hasNext ();)
 			{
 				Pedido pedido = (Pedido) iterator.next ();
-				if (pedido.getCod ().equalsIgnoreCase (codPedido))
-					pedidoAserPreparado = pedido;
-				else
-					continue;
+				System.out.println ("\t- Pedido: " + pedido.getCod ());
 			}
+
+			Pedido pedidoAserPreparado = null;
+			while (true)
+			{
+				String codPedido = someInput.next ();
+				for (Iterator< Pedido > iterator = pedidosPendentes.iterator (); iterator.hasNext ();)
+				{
+					Pedido pedido = (Pedido) iterator.next ();
+					if (pedido.getCod ().equalsIgnoreCase (codPedido))
+						pedidoAserPreparado = pedido;
+					else
+						continue;
+				}
 			if (pedidoAserPreparado != null)
 				break;
 			else
@@ -51,4 +54,5 @@ public class IniciarPreparacaoAction extends UIAction
 
 		operationService.prepararItens (pedidoAserPreparado, pedidoAserPreparado.getListItems ());
 	}
+		}
 }
