@@ -77,8 +77,7 @@ public class RestaurantInterface
 	{
 		Database.getInstanciaUnica ();
 		loginAction.execute ();
-		logoutAction.execute ();
-		System.exit (0);
+
 	}
 
 	/**
@@ -177,7 +176,7 @@ public class RestaurantInterface
 			System.out.println ("> Selecione uma das opcoes abaixo:");
 			System.out.println ("[1] - Abrir um pedido");
 			System.out.println ("[2] - Atualizar pedido");
-			System.out.println ("[3] - Fechar uma Mesa (PENDENTE)");
+			System.out.println ("[3] - Fechar uma Mesa");
 			System.out.println ("[4] - Encerrar sessão");
 			System.out.print ("Informe a opção desejada: ");
 			option = userOption.nextInt ();
@@ -212,8 +211,8 @@ public class RestaurantInterface
 		{
 			System.out.println ("\n>>> Bem Vindo ao restaurante Cozinheiro " + funcionario.getID () + "!! <<<");
 			System.out.println ("> Selecione uma das opcoes abaixo:");
-			System.out.println ("[1] - Iniciar preparacao de pedido (PENDENTE)");
-			System.out.println ("[2] - Concluir preparacao do pedido (PENDENTE)");
+			System.out.println ("[1] - Iniciar preparacao de pedido");
+			System.out.println ("[2] - Concluir preparacao do pedido");
 			System.out.println ("[3] - Encerrar sessão");
 			System.out.print ("Informe a opção desejada: ");
 			option = userOption.nextInt ();
@@ -246,11 +245,11 @@ public class RestaurantInterface
 		{
 			System.out.println ("\n>>> Bem Vindo ao restaurante Gerente " + funcionario.getID () + "!! <<<");
 			System.out.println ("> Selecione uma das opcoes abaixo:");
-			System.out.println ("[1] - Iniciar turno (PENDENTE)");
+			System.out.println ("[1] - Iniciar turno");
 			System.out.println ("[2] - Finalizar turno");
 			System.out.println ("[3] - Gerar relatorio de gastos e ganhos de um turno");
-			System.out.println ("[4] - Gerar folha de pagamentos de um turno (PENDENTE)");
-			System.out.println ("[5] - Gerar relatorio de estoque (PENDENTE)");
+			System.out.println ("[4] - Gerar folha de pagamentos de um turno");
+			System.out.println ("[5] - Gerar relatorio de estoque");
 			System.out.println ("[6] - Encerrar sessão");
 			System.out.print ("Informe a opção desejada: ");
 			option = userOption.nextInt ();

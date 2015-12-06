@@ -23,40 +23,44 @@ public class GerarFolhaPgtoAction extends UIAction
 	{
 		ArrayList< Turno > turnosFinalizados = operationService.getTurno ();
 
-		System.out.println ("Lista de turnos para gerar pagamento, favor escolher turno e inserir seu código abaixo:");
-		for (Iterator< Turno > iterator = turnosFinalizados.iterator (); iterator.hasNext ();)
-		{
-			Turno turno = (Turno) iterator.next ();
-			System.out.println ("\t- Turno: " + turno.getTurnoCod ());
-		}
-
-		Turno turnoParaGerarPagamento = null;
-		while (true)
-		{
-			String codTurno = someInput.next ();
+		if (turnosFinalizados.isEmpty()){
+			System.out.println("\n >>--- Não existem turnos finalizados ---<< \n");
+		} else {
+			System.out.println ("Lista de turnos para gerar pagamento, favor escolher turno e inserir seu código abaixo:");
 			for (Iterator< Turno > iterator = turnosFinalizados.iterator (); iterator.hasNext ();)
 			{
 				Turno turno = (Turno) iterator.next ();
-				if (turno.getTurnoCod ().equalsIgnoreCase (codTurno))
-					turnoParaGerarPagamento = turno;
-				else
-					continue;
+				System.out.println ("\t- Turno: " + turno.getTurnoCod ());
 			}
-			if (turnoParaGerarPagamento != null)
-				break;
-			else
-			{
-				System.out.println ("Nenhuma turno existente com este código de turno. Favor inserir novamente.");
-				continue;
-			}
-		}
 
-		System.out.println ("Folha de pagamento para o Turno selecionado (" + turnoParaGerarPagamento.getTurnoCod () + "):\n");
-		HashMap< Funcionario, Double > salarios = turnoParaGerarPagamento.getFolhaPgto ();
-		for (Iterator< Funcionario > iterator = salarios.keySet ().iterator (); iterator.hasNext ();)
-		{
-			Funcionario funcionario = (Funcionario) iterator.next ();
-			System.out.println ("\t- CodFuncionario: " + funcionario.getID () + "\n\t\t- Salário: " + salarios.get (funcionario).toString () + "\n");
+			Turno turnoParaGerarPagamento = null;
+			while (true)
+			{
+				String codTurno = someInput.next ();
+				for (Iterator< Turno > iterator = turnosFinalizados.iterator (); iterator.hasNext ();)
+				{
+					Turno turno = (Turno) iterator.next ();
+					if (turno.getTurnoCod ().equalsIgnoreCase (codTurno))
+						turnoParaGerarPagamento = turno;
+					else
+						continue;
+				}
+				if (turnoParaGerarPagamento != null)
+					break;
+				else
+				{
+					System.out.println ("Nenhuma turno existente com este código de turno. Favor inserir novamente.");
+					continue;
+				}
+			}
+
+			System.out.println ("Folha de pagamento para o Turno selecionado (" + turnoParaGerarPagamento.getTurnoCod () + "):\n");
+			HashMap< Funcionario, Double > salarios = turnoParaGerarPagamento.getFolhaPgto ();
+				for (Iterator< Funcionario > iterator = salarios.keySet ().iterator (); iterator.hasNext ();)
+				{
+					Funcionario funcionario = (Funcionario) iterator.next ();
+					System.out.println ("\t- CodFuncionario: " + funcionario.getID () + "\n\t\t- Salário: " + salarios.get (funcionario).toString () + "\n");
+				}
 		}
 	}
 }

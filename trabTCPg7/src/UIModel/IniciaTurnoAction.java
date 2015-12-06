@@ -31,8 +31,8 @@ public class IniciaTurnoAction extends UIAction
 			ArrayList< Garcom > listaGarcons = operationService.getGarcons ();
 			ArrayList< Setor > listaSetores = operationService.getSetores ();
 			HashMap< Garcom, Setor > disposicao = new HashMap< Garcom, Setor > ();
-
-			System.out.println ("Favor selecionar Garçom para cada Setor:");
+		
+			System.out.println (">> Favor selecionar Garçom para cada Setor: ");
 			for (Iterator< Setor > iterator = listaSetores.iterator (); iterator.hasNext ();)
 			{
 				Setor setor = (Setor) iterator.next ();

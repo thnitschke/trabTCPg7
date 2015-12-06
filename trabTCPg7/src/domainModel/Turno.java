@@ -3,6 +3,8 @@ package domainModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Random;
+
 import ArchitectureModel.Database;
 
 /**
@@ -33,6 +35,8 @@ public class Turno
 	private HashMap< Garcom, Setor > garcomSetor;
 	private ArrayList< Pedido > pedidos;
 	private HashMap< Funcionario, Double > gorjetas;
+	
+	Random number = new Random ();
 
 	/**
 	 * Construtor da classe Turno.
@@ -41,6 +45,7 @@ public class Turno
 	 */
 	public Turno ()
 	{
+		turnoCod = "T"+number.nextInt(1000000000);
 		custo = 0;
 		lucro = 0;
 		garcomSetor = new HashMap< Garcom, Setor > ();

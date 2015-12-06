@@ -209,7 +209,7 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 	@Override public ArrayList< Mesa > getMesasAbertas (Garcom garcom)
 	{
 		Turno ativo;
-		ArrayList< Mesa > mesasFiltradas = null;
+		ArrayList< Mesa > mesasFiltradas = new ArrayList<>();
 		try
 		{
 			ativo = database.getTurnoAtivo ();
@@ -360,13 +360,17 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 			pedidosPendentes = new ArrayList< Pedido > ();
 			ArrayList< Pedido > todosPedidos = ativo.getPedidos ();
 
-			for (Iterator< Pedido > iterator = todosPedidos.iterator (); iterator.hasNext ();)
-			{
-				Pedido pedido = (Pedido) iterator.next ();
-				if (pedido.getEstado () == Estado.PENDENTE)
-					pedidosPendentes.add (pedido);
-				else
-					continue;
+			if (todosPedidos.isEmpty()){
+				System.out.println("\n>>--- Não existem pedidos pendentes ---<< \n");
+			} else{
+				for (Iterator< Pedido > iterator = todosPedidos.iterator (); iterator.hasNext ();)
+				{
+					Pedido pedido = (Pedido) iterator.next ();
+					if (pedido.getEstado () == Estado.PENDENTE)
+						pedidosPendentes.add (pedido);
+					else
+						continue;
+				}
 			}
 		}
 		catch (SemTurnoAtivoException e)
@@ -407,7 +411,7 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 			for (Iterator< Item > iterator = itensPedidos.iterator (); iterator.hasNext ();)
 			{
 				Item item = (Item) iterator.next ();
-				if (item.getCategoria ().equalsIgnoreCase ("bebida"))
+				if (item.getCategoria ().equalsIgnoreCase ("bebidas"))
 				{
 					ativo.addCusto (item.getCusto ());
 					itensPedidos.remove (item);
@@ -501,7 +505,7 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 		{
 			ativo = database.getTurnoAtivo ();
 			ativo.setGarconsSetor (disposicao);
-			System.out.println ("\n--- Garçons designados com sucesso! ---");
+			System.out.println ("\n>>--- Garçons designados com sucesso! ---<< \n");
 		}
 		catch (SemTurnoAtivoException e)
 		{
@@ -546,7 +550,7 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 	}
 
 	/**
-	 * 
+	 * Finaliza um pedido.
 	 */
 	@Override public void finalizarPedido (Pedido pedido)
 	{
@@ -562,11 +566,17 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 		}
 	}
 
+	/**
+	 * Cria um turno.
+	 */
 	public void criaTurnoAtivo ()
 	{
 		database.criaTurnoAtivo ();
 	}
 
+	/**
+	 * Retorna a lista de turnos.
+	 */
 	@Override public ArrayList< Turno > getTurno ()
 	{
 		return database.getTurno ();

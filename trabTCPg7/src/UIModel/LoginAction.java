@@ -26,7 +26,7 @@ public class LoginAction extends UIAction
 		String input = typeID.next ();
 		if (input.equalsIgnoreCase ("EXIT"))
 		{
-			return; // Volta ao método main.
+			System.exit (0);
 		}
 		else
 		{
