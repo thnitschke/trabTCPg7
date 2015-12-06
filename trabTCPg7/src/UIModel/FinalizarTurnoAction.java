@@ -19,10 +19,11 @@ public class FinalizarTurnoAction extends UIAction
 		if (mesasFechadas == true)
 		{
 			operationService.retirarTurnoAtivo ();
+			System.out.println ("\n>>--- Turno atual encerrado com sucesso!! ---<< \n");
 		}
 		else
 		{
-			System.out.println ("\n--- Todas as mesas não estão fechadas. Não é possivel encerrar turno. ---");
+			System.out.println ("\n>>--- Todas as mesas não estão fechadas. Não é possivel encerrar turno. ---<<");
 		}
 
 	}

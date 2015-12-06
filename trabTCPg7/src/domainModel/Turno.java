@@ -103,7 +103,7 @@ public class Turno
 	 */
 	public Setor getSetor (Garcom garcom)
 	{
-		return garcomSetor.get (garcom);
+		return garcomSetor.get(garcom);
 	}
 
 	/**
@@ -229,7 +229,7 @@ public class Turno
 		for (Iterator< Funcionario > iterator = todosFuncionarios.iterator (); iterator.hasNext ();)
 		{
 			Funcionario funcionario = (Funcionario) iterator.next ();
-			salario = todosSalarios.get (funcionario.getClass ().getSimpleName ());
+			salario = todosSalarios.get (funcionario.getID());
 
 			if (gorjetas.containsKey (funcionario))
 			{

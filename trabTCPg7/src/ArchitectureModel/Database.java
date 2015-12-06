@@ -60,7 +60,7 @@ public class Database
 	{
 		despensa = new HashMap<>();
 		listaTurnos = new ArrayList< Turno > ();
-		turnoAtivo = null;
+		turnoAtivo = new Turno();
 		listaFuncionarios = new ArrayList< Funcionario > ();
 		listaSetores = new ArrayList< Setor > ();
 		loadRestaurantData ();
@@ -353,6 +353,12 @@ public class Database
 		listaFuncionarios.add (g2);
 		Funcionario g3 = new Garcom ("G002");
 		listaFuncionarios.add (g3);
+		Funcionario g4 = new Garcom ("G003");
+		listaFuncionarios.add (g4);
+		Funcionario g5 = new Garcom ("G004");
+		listaFuncionarios.add (g5);
+		Funcionario g6 = new Garcom ("G005");
+		listaFuncionarios.add (g6);
 
 		// INCIALIZANDO SETORES DO RESTAURANTE
 		Setor se1 = new Setor ("Azul");
@@ -552,7 +558,7 @@ public class Database
 		despensa.put(molhoRucula, (double) 50);
 		despensa.put(tomateItalinano, (double) 50);
 		despensa.put(mozarelaBufala, (double) 50);
-		despensa.put(molhoManjericao, (double) 50);
+		despensa.put(molhoManjericao, (double) 0);
 		despensa.put(molhoalfacemimosa, (double) 50);
 		despensa.put(molhorucula, (double) 50);
 		despensa.put(nozes, (double) 50);
@@ -573,7 +579,7 @@ public class Database
 		despensa.put(caldoDeCenoura, (double) 50);
 		despensa.put(batataSalsa, (double) 50);
 		despensa.put(caldoDeCarne, (double) 50);
-		despensa.put(costelaDePorco, (double) 50);
+		despensa.put(costelaDePorco, (double) 0);
 		despensa.put(arroz, (double) 50);
 		despensa.put(feijao, (double) 50);
 		despensa.put(mandioca, (double) 50);
@@ -592,7 +598,7 @@ public class Database
 		despensa.put(nata, (double) 50);
 		despensa.put(fileDeCostela , (double) 50);
 		despensa.put(perdiz , (double) 50);
-		despensa.put(linguicaCalabresa , (double) 50);
+		despensa.put(linguicaCalabresa , (double) 0);
 		despensa.put(cachaca , (double) 50);
 		despensa.put(manteigaDeFoieGras , (double) 50);
 		despensa.put(fileDeRobalo , (double) 50);
@@ -609,7 +615,7 @@ public class Database
 		despensa.put(biscoitoChampagne , (double) 50);
 		despensa.put(cafe , (double) 50);
 		despensa.put(queijoMascarpone , (double) 50);
-		despensa.put(cacau , (double) 50);
+		despensa.put(cacau , (double) 0);
 		despensa.put(chocolateAmargo , (double) 50);
 		despensa.put(castanha , (double) 50);
 		despensa.put(leite , (double) 50);

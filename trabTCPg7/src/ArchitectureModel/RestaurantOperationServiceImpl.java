@@ -259,7 +259,7 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 		{
 			for (int mesa = 0; mesa < mesasSemReserva.size (); mesa++)
 			{
-				if (mesasSemReserva.get (mesa).equals (mesasSemReserva.get (reservadas)))
+				if (mesasSemReserva.get (mesa).equals (mesasReservadas.get (reservadas)))
 				{
 					mesasSemReserva.remove (mesa);
 				}

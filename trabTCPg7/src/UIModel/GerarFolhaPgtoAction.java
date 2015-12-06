@@ -30,12 +30,13 @@ public class GerarFolhaPgtoAction extends UIAction
 			for (Iterator< Turno > iterator = turnosFinalizados.iterator (); iterator.hasNext ();)
 			{
 				Turno turno = (Turno) iterator.next ();
-				System.out.println ("\t- Turno: " + turno.getTurnoCod ());
+				System.out.println ("\t- Turno: " + turno.getTurnoCod ()+"\n");
 			}
 
 			Turno turnoParaGerarPagamento = null;
 			while (true)
 			{
+				System.out.print("Informe o turno: ");
 				String codTurno = someInput.next ();
 				for (Iterator< Turno > iterator = turnosFinalizados.iterator (); iterator.hasNext ();)
 				{

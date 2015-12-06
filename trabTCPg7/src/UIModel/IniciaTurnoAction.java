@@ -23,7 +23,7 @@ public class IniciaTurnoAction extends UIAction
 	{
 		if (!operationService.verificaMesasLiberadas ())
 		{
-			System.out.println ("Todas mesas do restaurante não estão liberadas. Verifique-as novamente.");
+			System.out.println ("\n >>--- Todas mesas do restaurante não estão liberadas. Verifique-as novamente. ---<< \n");
 			return;
 		}
 		else
@@ -36,14 +36,14 @@ public class IniciaTurnoAction extends UIAction
 			for (Iterator< Setor > iterator = listaSetores.iterator (); iterator.hasNext ();)
 			{
 				Setor setor = (Setor) iterator.next ();
-				System.out.println ("\nSetor " + setor.getNome () + ":\n");
+				System.out.println (">> Setor " + setor.getNome () + ":");
 				for (Iterator< Garcom > iterator2 = listaGarcons.iterator (); iterator2.hasNext ();)
 				{
 					Garcom garcom = (Garcom) iterator2.next ();
 					System.out.println ("\tGarçom : " + garcom.getID () + ".");
 				}
 
-				System.out.print ("\nInsira o código do Garçom para este Setor: ");
+				System.out.print ("Insira o código do Garçom para este Setor: ");
 				String codGarcom = someInput.next ();
 				for (Iterator< Garcom > iterator2 = listaGarcons.iterator (); iterator2.hasNext ();)
 				{
@@ -60,7 +60,7 @@ public class IniciaTurnoAction extends UIAction
 
 			operationService.criaTurnoAtivo ();
 			operationService.setGarconsSetor (disposicao);
-			System.out.println ("Turno iniciado com sucesso!:");
+			System.out.println ("\n >>--- Turno iniciado com sucesso! ---<< \n");
 		}
 	}
 }
