@@ -20,10 +20,13 @@ public class FinalizarPreparacaoAction extends UIAction
 	@Override public void execute ()
 	{
 		ArrayList< Pedido > pedidos = operationService.getPedidosPendentes ();
-		
-		if(pedidos.isEmpty()){
-			System.out.println("...");
-		} else{
+
+		if (pedidos.isEmpty ())
+		{
+			System.out.println ("...");
+		}
+		else
+		{
 			System.out.println ("Lista de pedidos para serem finalizados, favor escolher pedido e inserir seu código abaixo:");
 			for (Iterator< Pedido > iterator = pedidos.iterator (); iterator.hasNext ();)
 			{
@@ -43,15 +46,16 @@ public class FinalizarPreparacaoAction extends UIAction
 					else
 						continue;
 				}
-			if (pedidoAserFinalizado != null)
-				break;
-			else
-			{
-				System.out.println ("Nenhum pedido a ser finalizado com este código de pedido existe. Favor inserir novamente.");
-				continue;
+				if (pedidoAserFinalizado != null)
+					break;
+				else
+				{
+					System.out.println ("Nenhum pedido a ser finalizado com este código de pedido existe. Favor inserir novamente.");
+					continue;
+				}
 			}
-		}
 
-		operationService.finalizarPedido (pedidoAserFinalizado);
-	}}
+			operationService.finalizarPedido (pedidoAserFinalizado);
+		}
+	}
 }

@@ -21,14 +21,17 @@ public class VerificarDespensaAction extends UIAction
 	{
 		ArrayList< Ingrediente > emFalta = operationService.getIngredientesEmFalta ();
 
-		if (emFalta.isEmpty()){
-			System.out.println("\n >>--- Não possui ingredientes em falta. ---<< \n");
-		} else{
+		if (emFalta.isEmpty ())
+		{
+			System.out.println ("\n >>--- Não possui ingredientes em falta. ---<< \n");
+		}
+		else
+		{
 			System.out.println ("\n >>--- Estão em falta: ---<< \n");
 			for (Iterator< Ingrediente > iterator = emFalta.iterator (); iterator.hasNext ();)
 			{
-			Ingrediente ingrediente = (Ingrediente) iterator.next ();
-			System.out.println ("\t - " + ingrediente.getNome () + ";");
+				Ingrediente ingrediente = (Ingrediente) iterator.next ();
+				System.out.println ("\t - " + ingrediente.getNome () + ";");
 			}
 		}
 	}

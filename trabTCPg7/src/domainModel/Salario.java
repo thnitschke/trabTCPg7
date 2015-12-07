@@ -13,18 +13,18 @@ public class Salario
 	private Double salario;
 	private Double porcentagem;
 
-	Salario (double salario, double porcentagem)
+	public Salario (double salario, double porcentagem)
 	{
 		this.salario = new Double (salario);
 		this.porcentagem = new Double (porcentagem);
 	}
 
-	Double getSalario ()
+	public Double getSalario ()
 	{
 		return salario;
 	}
 
-	Double getPorcentagem ()
+	public Double getPorcentagem ()
 	{
 		return porcentagem;
 	}

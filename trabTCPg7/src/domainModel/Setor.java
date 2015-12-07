@@ -23,7 +23,7 @@ public class Setor
 	public Setor (String nome)
 	{
 		this.setNome (nome);
-		mesas = new ArrayList< > ();
+		mesas = new ArrayList< Mesa > ();
 	}
 
 	/**

@@ -24,6 +24,11 @@ public class AtendeMesaAction extends UIAction
 		Funcionario funcionario = interf.getFuncionario ();
 		ArrayList< Mesa > mesasParaAtendimento = operationService.getMesasParaAtendimento ((Garcom) funcionario);
 		ArrayList< Item > itensSelecionados = new ArrayList< Item > ();
+		
+		if (mesasParaAtendimento == null)
+		{
+			return;
+		}
 
 		System.out.println ("Lista de mesas para atendimento, favor escolher mesa e inserir seu código abaixo:");
 		for (Iterator< Mesa > iterator = mesasParaAtendimento.iterator (); iterator.hasNext ();)

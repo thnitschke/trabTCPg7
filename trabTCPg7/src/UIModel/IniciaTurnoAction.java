@@ -21,6 +21,8 @@ public class IniciaTurnoAction extends UIAction
 	 */
 	@Override public void execute ()
 	{
+		operationService.criaTurnoAtivo ();
+
 		if (!operationService.verificaMesasLiberadas ())
 		{
 			System.out.println ("\n >>--- Todas mesas do restaurante não estão liberadas. Verifique-as novamente. ---<< \n");
@@ -31,7 +33,7 @@ public class IniciaTurnoAction extends UIAction
 			ArrayList< Garcom > listaGarcons = operationService.getGarcons ();
 			ArrayList< Setor > listaSetores = operationService.getSetores ();
 			HashMap< Garcom, Setor > disposicao = new HashMap< Garcom, Setor > ();
-		
+
 			System.out.println (">> Favor selecionar Garçom para cada Setor: ");
 			for (Iterator< Setor > iterator = listaSetores.iterator (); iterator.hasNext ();)
 			{
@@ -58,7 +60,6 @@ public class IniciaTurnoAction extends UIAction
 				}
 			}
 
-			operationService.criaTurnoAtivo ();
 			operationService.setGarconsSetor (disposicao);
 			System.out.println ("\n >>--- Turno iniciado com sucesso! ---<< \n");
 		}

@@ -24,10 +24,13 @@ public class FechaMesaAction extends UIAction
 	{
 		Funcionario funcionario = interf.getFuncionario ();
 		ArrayList< Mesa > mesasAbertas = operationService.getMesasAbertas ((Garcom) funcionario);
-		if (mesasAbertas.isEmpty()){
-			System.out.println("\n>>--- Não existem mesas abertas. ---<< \n");
-		} else{
-		
+		if (mesasAbertas.isEmpty ())
+		{
+			System.out.println ("\n>>--- Não existem mesas abertas. ---<< \n");
+		}
+		else
+		{
+
 			System.out.println ("Lista de mesas abertas, favor escolher mesa e inserir seu código abaixo:");
 			for (Iterator< Mesa > iterator = mesasAbertas.iterator (); iterator.hasNext ();)
 			{
@@ -51,8 +54,8 @@ public class FechaMesaAction extends UIAction
 					break;
 				else
 				{
-				System.out.println ("Nenhuma mesa existente com este código de mesa. Favor inserir novamente.");
-				continue;
+					System.out.println ("Nenhuma mesa existente com este código de mesa. Favor inserir novamente.");
+					continue;
 				}
 			}
 

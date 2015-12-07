@@ -95,29 +95,38 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 		{
 			ativo = database.getTurnoAtivo ();
 			Setor setor = ativo.getSetor (garcom);
-			ArrayList< Mesa > mesasSetor = database.getMesas (setor);
-			if (mesasSetor == null){
-				System.out.println("\n>>--- Lista de mesas vazia no setor solicitado ---<< \n");
-			} else {
-			
-			mesasFiltradas = new ArrayList< Mesa > ();
-
-			for (Iterator< Mesa > iterator = mesasSetor.iterator (); iterator.hasNext ();)
+			if (setor == null)
 			{
-				Mesa mesa = (Mesa) iterator.next ();
-				if (mesa.isOcupada () && (mesa.getPedido () == null || mesa.getPedido ().getGarcom ().equals (garcom)))
-					mesasFiltradas.add (mesa);
-				else
-					continue;
+				System.out.println ("\n>>--- Garçom não tem setor associado ---<< \n");
+				return null;
 			}
+			
+			ArrayList< Mesa > mesasSetor = database.getMesas (setor);
+			if (mesasSetor == null)
+			{
+				System.out.println ("\n>>--- Lista de mesas vazia no setor solicitado ---<< \n");
+			}
+			else
+			{
+
+				mesasFiltradas = new ArrayList< Mesa > ();
+
+				for (Iterator< Mesa > iterator = mesasSetor.iterator (); iterator.hasNext ();)
+				{
+					Mesa mesa = (Mesa) iterator.next ();
+					if (mesa.isOcupada () && (mesa.getPedido () == null || mesa.getPedido ().getGarcom ().equals (garcom)))
+						mesasFiltradas.add (mesa);
+					else
+						continue;
+				}
 			}
 		}
-			
+
 		catch (SemTurnoAtivoException e)
 		{
 			System.out.println (e.getMessage ());
 		}
-			
+
 		return mesasFiltradas;
 	}
 
@@ -215,25 +224,28 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 	@Override public ArrayList< Mesa > getMesasAbertas (Garcom garcom)
 	{
 		Turno ativo;
-		ArrayList< Mesa > mesasFiltradas = new ArrayList<>();
+		ArrayList< Mesa > mesasFiltradas = new ArrayList< > ();
 		try
 		{
 			ativo = database.getTurnoAtivo ();
 			Setor setor = ativo.getSetor (garcom);
-			if(setor == null){
-				System.out.println("Não foi possivel encontrar o setor.");
-			} else{
-			ArrayList< Mesa > mesasSetor = database.getMesas (setor);
-			mesasFiltradas = new ArrayList< Mesa > ();
-
-			for (Iterator< Mesa > iterator = mesasSetor.iterator (); iterator.hasNext ();)
+			if (setor == null)
 			{
-				Mesa mesa = (Mesa) iterator.next ();
-				if (mesa.isOcupada () && mesa.getPedido ().getGarcom ().equals (garcom))
-					mesasFiltradas.add (mesa);
-				else
-					continue;
+				System.out.println ("Não foi possivel encontrar o setor.");
 			}
+			else
+			{
+				ArrayList< Mesa > mesasSetor = database.getMesas (setor);
+				mesasFiltradas = new ArrayList< Mesa > ();
+
+				for (Iterator< Mesa > iterator = mesasSetor.iterator (); iterator.hasNext ();)
+				{
+					Mesa mesa = (Mesa) iterator.next ();
+					if (mesa.isOcupada () && mesa.getPedido ().getGarcom ().equals (garcom))
+						mesasFiltradas.add (mesa);
+					else
+						continue;
+				}
 			}
 		}
 		catch (SemTurnoAtivoException e)
@@ -370,9 +382,12 @@ public class RestaurantOperationServiceImpl implements RestaurantOperationServic
 			pedidosPendentes = new ArrayList< Pedido > ();
 			ArrayList< Pedido > todosPedidos = ativo.getPedidos ();
 
-			if (todosPedidos.isEmpty()){
-				System.out.println("\n>>--- Não existem pedidos pendentes ---<< \n");
-			} else{
+			if (todosPedidos.isEmpty ())
+			{
+				System.out.println ("\n>>--- Não existem pedidos pendentes ---<< \n");
+			}
+			else
+			{
 				for (Iterator< Pedido > iterator = todosPedidos.iterator (); iterator.hasNext ();)
 				{
 					Pedido pedido = (Pedido) iterator.next ();

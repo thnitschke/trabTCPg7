@@ -23,20 +23,23 @@ public class GerarFolhaPgtoAction extends UIAction
 	{
 		ArrayList< Turno > turnosFinalizados = operationService.getTurno ();
 
-		if (turnosFinalizados.isEmpty()){
-			System.out.println("\n >>--- Não existem turnos finalizados ---<< \n");
-		} else {
+		if (turnosFinalizados.isEmpty ())
+		{
+			System.out.println ("\n >>--- Não existem turnos finalizados ---<< \n");
+		}
+		else
+		{
 			System.out.println ("Lista de turnos para gerar pagamento, favor escolher turno e inserir seu código abaixo:");
 			for (Iterator< Turno > iterator = turnosFinalizados.iterator (); iterator.hasNext ();)
 			{
 				Turno turno = (Turno) iterator.next ();
-				System.out.println ("\t- Turno: " + turno.getTurnoCod ()+"\n");
+				System.out.println ("\t- Turno: " + turno.getTurnoCod () + "\n");
 			}
 
 			Turno turnoParaGerarPagamento = null;
 			while (true)
 			{
-				System.out.print("Informe o turno: ");
+				System.out.print ("Informe o turno: ");
 				String codTurno = someInput.next ();
 				for (Iterator< Turno > iterator = turnosFinalizados.iterator (); iterator.hasNext ();)
 				{
@@ -57,11 +60,11 @@ public class GerarFolhaPgtoAction extends UIAction
 
 			System.out.println ("Folha de pagamento para o Turno selecionado (" + turnoParaGerarPagamento.getTurnoCod () + "):\n");
 			HashMap< Funcionario, Double > salarios = turnoParaGerarPagamento.getFolhaPgto ();
-				for (Iterator< Funcionario > iterator = salarios.keySet ().iterator (); iterator.hasNext ();)
-				{
-					Funcionario funcionario = (Funcionario) iterator.next ();
-					System.out.println ("\t- CodFuncionario: " + funcionario.getID () + "\n\t\t- Salário: " + salarios.get (funcionario).toString () + "\n");
-				}
+			for (Iterator< Funcionario > iterator = salarios.keySet ().iterator (); iterator.hasNext ();)
+			{
+				Funcionario funcionario = (Funcionario) iterator.next ();
+				System.out.println ("\t- CodFuncionario: " + funcionario.getID () + "\n\t\t- Salário: " + salarios.get (funcionario).toString () + "\n");
+			}
 		}
 	}
 }

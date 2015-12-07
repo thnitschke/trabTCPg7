@@ -15,9 +15,9 @@ import domainModel.Item;
 import domainModel.Mesa;
 import domainModel.Receita;
 import domainModel.Salario;
+import domainModel.SemTurnoAtivoException;
 import domainModel.Setor;
 import domainModel.Turno;
-import domainModel.SemTurnoAtivoException;
 
 /**
  * A base de dados guarda todas as informações históricas do restaurante, além
@@ -58,11 +58,13 @@ public class Database
 	 */
 	private Database ()
 	{
-		despensa = new HashMap<>();
+		despensa = new HashMap< Ingrediente, Double > ();
 		listaTurnos = new ArrayList< Turno > ();
-		turnoAtivo = new Turno();
+		turnoAtivo = null;
 		listaFuncionarios = new ArrayList< Funcionario > ();
 		listaSetores = new ArrayList< Setor > ();
+		cardapio = new ArrayList< Item > ();
+		salarios = new HashMap< String, Salario > ();
 		loadRestaurantData ();
 	}
 
@@ -84,7 +86,6 @@ public class Database
 		return instanciaUnica;
 	}
 
-	
 	/**
 	 * Retorna true ou false verificando se tem turno ativo.
 	 * 
@@ -98,12 +99,13 @@ public class Database
 			return false;
 	}
 
-	
 	/**
 	 * Retorna o turno ativo.
 	 * 
 	 * @return Retorna este turno.
-	 * @throws SemTurnoAtivoException Joga a exceção SemTurnoAtivoException caso não haja um turno ativo.
+	 * @throws SemTurnoAtivoException
+	 *                 Joga a exceção SemTurnoAtivoException caso não haja
+	 *                 um turno ativo.
 	 */
 	public Turno getTurnoAtivo () throws SemTurnoAtivoException
 	{
@@ -267,7 +269,6 @@ public class Database
 		turnoAtivo = null;
 	}
 
-	
 	/**
 	 * Retorna a quantidade de Ingredientes que faltam no estoque.
 	 * 
@@ -450,9 +451,8 @@ public class Database
 		se5.addMesa (m5s5);
 		Mesa m6s5 = new Mesa (se5, 3, "S5M06");
 		se5.addMesa (m6s5);
-		
-		
-		//INGREDIENTES 
+
+		// INGREDIENTES
 		Ingrediente linguica = new Ingrediente ("Linguiça");
 		Ingrediente cebola = new Ingrediente ("Cebola");
 		Ingrediente pao = new Ingrediente ("Pão");
@@ -533,7 +533,7 @@ public class Database
 		Ingrediente limoes = new Ingrediente ("Limões");
 		Ingrediente abacaxi = new Ingrediente ("Abacaxi");
 		Ingrediente gengibre = new Ingrediente ("Gengibre");
-		
+
 		Ingrediente aguaGas = new Ingrediente ("Agua com gas");
 		Ingrediente aguaTonica = new Ingrediente ("Agua Tonica");
 		Ingrediente cerveja = new Ingrediente ("Cerveja");
@@ -542,135 +542,175 @@ public class Database
 		Ingrediente vinhoBranco = new Ingrediente ("Vinho Branco");
 		Ingrediente espumante = new Ingrediente ("Espumante");
 
-		despensa.put(linguica, (double) 50);
-		despensa.put(cebola, (double) 50);
-		despensa.put(pao, (double) 50);
-		despensa.put(jilo, (double) 50);
-		despensa.put(queijoCanastra, (double) 50);
-		despensa.put(camarao, (double) 50);
-		despensa.put(folhasVerdes, (double) 50);
-		despensa.put(queijoCamem, (double) 50);
-		despensa.put(molhoFolhasmix, (double) 50);
-		despensa.put(amoras, (double) 50);
-		despensa.put(file, (double) 50);
-		despensa.put(queijoGrana, (double) 50);
-		despensa.put(crostine, (double) 50);
-		despensa.put(molhoRucula, (double) 50);
-		despensa.put(tomateItalinano, (double) 50);
-		despensa.put(mozarelaBufala, (double) 50);
-		despensa.put(molhoManjericao, (double) 0);
-		despensa.put(molhoalfacemimosa, (double) 50);
-		despensa.put(molhorucula, (double) 50);
-		despensa.put(nozes, (double) 50);
-		despensa.put(figos, (double) 50);
-		despensa.put(cebolaRoxa, (double) 50);
-		despensa.put(queijoBrie, (double) 50);
-		despensa.put(misso, (double) 50);
-		despensa.put(pernilSuico, (double) 50);
-		despensa.put(champignon, (double) 50);
-		despensa.put(cenoura, (double) 50);
-		despensa.put(molhoAcelga, (double) 50);
-		despensa.put(macarrao, (double) 50);
-		despensa.put(couveFlor, (double) 50);
-		despensa.put(batata, (double) 50);
-		despensa.put(ervilha, (double) 50);
-		despensa.put(vagem, (double) 50);
-		despensa.put(cremeDeMesa, (double) 50);
-		despensa.put(caldoDeCenoura, (double) 50);
-		despensa.put(batataSalsa, (double) 50);
-		despensa.put(caldoDeCarne, (double) 50);
-		despensa.put(costelaDePorco, (double) 0);
-		despensa.put(arroz, (double) 50);
-		despensa.put(feijao, (double) 50);
-		despensa.put(mandioca, (double) 50);
-		despensa.put(molhoDeCouve, (double) 50);
-		despensa.put(lomboDePorco , (double) 50);
-		despensa.put(farinhaDeMandioca , (double) 50);
-		despensa.put(sobrecoxaDeFrango , (double) 50);
-		despensa.put(cremeDeLeite , (double) 50);
-		despensa.put(milhoVerde , (double) 50);
-		despensa.put(coxinhaDeAsa , (double) 50);
-		despensa.put(fubaDeMilho , (double) 50);
-		despensa.put(porcaoDeQuiabo , (double) 50);
-		despensa.put(chuchu , (double) 50);
-		despensa.put(penne , (double) 50);
-		despensa.put(queijoGruyere , (double) 50);
-		despensa.put(nata, (double) 50);
-		despensa.put(fileDeCostela , (double) 50);
-		despensa.put(perdiz , (double) 50);
-		despensa.put(linguicaCalabresa , (double) 0);
-		despensa.put(cachaca , (double) 50);
-		despensa.put(manteigaDeFoieGras , (double) 50);
-		despensa.put(fileDeRobalo , (double) 50);
-		despensa.put(batatasDoces , (double) 50);
-		despensa.put(abobora , (double) 50);
-		despensa.put(coco , (double) 50);
-		despensa.put(acucar , (double) 50);
-		despensa.put(margarina , (double) 50);
-		despensa.put(leiteCondensado , (double) 50);
-		despensa.put(biscoitoMaizena , (double) 50);
-		despensa.put(chocolate , (double) 50);
-		despensa.put(farinhaDeTrigo , (double) 50);
-		despensa.put(sorveteDeCreme , (double) 50);
-		despensa.put(biscoitoChampagne , (double) 50);
-		despensa.put(cafe , (double) 50);
-		despensa.put(queijoMascarpone , (double) 50);
-		despensa.put(cacau , (double) 0);
-		despensa.put(chocolateAmargo , (double) 50);
-		despensa.put(castanha , (double) 50);
-		despensa.put(leite , (double) 50);
-		despensa.put(limoes , (double) 50);
-		despensa.put(abacaxi , (double) 50);
-		despensa.put(gengibre , (double) 50);
-		despensa.put(aguaGas , (double) 50);
-		despensa.put(aguaTonica , (double) 50);
-		despensa.put(cerveja , (double) 50);
-		despensa.put(refrigerante , (double) 50);
-		despensa.put(vinhoTinto , (double) 50);
-		despensa.put(vinhoBranco , (double) 50);
-		despensa.put(espumante , (double) 0);
+		despensa.put (linguica, (double) 50);
+		despensa.put (cebola, (double) 50);
+		despensa.put (pao, (double) 50);
+		despensa.put (jilo, (double) 50);
+		despensa.put (queijoCanastra, (double) 50);
+		despensa.put (camarao, (double) 50);
+		despensa.put (folhasVerdes, (double) 50);
+		despensa.put (queijoCamem, (double) 50);
+		despensa.put (molhoFolhasmix, (double) 50);
+		despensa.put (amoras, (double) 50);
+		despensa.put (file, (double) 50);
+		despensa.put (queijoGrana, (double) 50);
+		despensa.put (crostine, (double) 50);
+		despensa.put (molhoRucula, (double) 50);
+		despensa.put (tomateItalinano, (double) 50);
+		despensa.put (mozarelaBufala, (double) 50);
+		despensa.put (molhoManjericao, (double) 0);
+		despensa.put (molhoalfacemimosa, (double) 50);
+		despensa.put (molhorucula, (double) 50);
+		despensa.put (nozes, (double) 50);
+		despensa.put (figos, (double) 50);
+		despensa.put (cebolaRoxa, (double) 50);
+		despensa.put (queijoBrie, (double) 50);
+		despensa.put (misso, (double) 50);
+		despensa.put (pernilSuico, (double) 50);
+		despensa.put (champignon, (double) 50);
+		despensa.put (cenoura, (double) 50);
+		despensa.put (molhoAcelga, (double) 50);
+		despensa.put (macarrao, (double) 50);
+		despensa.put (couveFlor, (double) 50);
+		despensa.put (batata, (double) 50);
+		despensa.put (ervilha, (double) 50);
+		despensa.put (vagem, (double) 50);
+		despensa.put (cremeDeMesa, (double) 50);
+		despensa.put (caldoDeCenoura, (double) 50);
+		despensa.put (batataSalsa, (double) 50);
+		despensa.put (caldoDeCarne, (double) 50);
+		despensa.put (costelaDePorco, (double) 0);
+		despensa.put (arroz, (double) 50);
+		despensa.put (feijao, (double) 50);
+		despensa.put (mandioca, (double) 50);
+		despensa.put (molhoDeCouve, (double) 50);
+		despensa.put (lomboDePorco, (double) 50);
+		despensa.put (farinhaDeMandioca, (double) 50);
+		despensa.put (sobrecoxaDeFrango, (double) 50);
+		despensa.put (cremeDeLeite, (double) 50);
+		despensa.put (milhoVerde, (double) 50);
+		despensa.put (coxinhaDeAsa, (double) 50);
+		despensa.put (fubaDeMilho, (double) 50);
+		despensa.put (porcaoDeQuiabo, (double) 50);
+		despensa.put (chuchu, (double) 50);
+		despensa.put (penne, (double) 50);
+		despensa.put (queijoGruyere, (double) 50);
+		despensa.put (nata, (double) 50);
+		despensa.put (fileDeCostela, (double) 50);
+		despensa.put (perdiz, (double) 50);
+		despensa.put (linguicaCalabresa, (double) 0);
+		despensa.put (cachaca, (double) 50);
+		despensa.put (manteigaDeFoieGras, (double) 50);
+		despensa.put (fileDeRobalo, (double) 50);
+		despensa.put (batatasDoces, (double) 50);
+		despensa.put (abobora, (double) 50);
+		despensa.put (coco, (double) 50);
+		despensa.put (acucar, (double) 50);
+		despensa.put (margarina, (double) 50);
+		despensa.put (leiteCondensado, (double) 50);
+		despensa.put (biscoitoMaizena, (double) 50);
+		despensa.put (chocolate, (double) 50);
+		despensa.put (farinhaDeTrigo, (double) 50);
+		despensa.put (sorveteDeCreme, (double) 50);
+		despensa.put (biscoitoChampagne, (double) 50);
+		despensa.put (cafe, (double) 50);
+		despensa.put (queijoMascarpone, (double) 50);
+		despensa.put (cacau, (double) 0);
+		despensa.put (chocolateAmargo, (double) 50);
+		despensa.put (castanha, (double) 50);
+		despensa.put (leite, (double) 50);
+		despensa.put (limoes, (double) 50);
+		despensa.put (abacaxi, (double) 50);
+		despensa.put (gengibre, (double) 50);
+		despensa.put (aguaGas, (double) 50);
+		despensa.put (aguaTonica, (double) 50);
+		despensa.put (cerveja, (double) 50);
+		despensa.put (refrigerante, (double) 50);
+		despensa.put (vinhoTinto, (double) 50);
+		despensa.put (vinhoBranco, (double) 50);
+		despensa.put (espumante, (double) 0);
 
-		Item item1 = new Item ("Linguica com Cebola", 17, "Entrada", 13, 10,(new Receita(despensa, "1 cebola, 2 linguiças, 2 pães" )));
-		Item item2 = new Item ("Jiló com queijo", 12, "Entrada", 9, 12,(new Receita(despensa, "5 jilós, 50g de queijo canastra, 2 pães" )));
-		Item item3 = new Item ("Camarões Médios de Cativeiro", 26, "Entrada", 20, 13,(new Receita(despensa, "6 camarões médios, 1 molho de folhas verdes" )));
-		Item item4 = new Item ("Camembert Empanado, Mix de Folhas e Coulie de Amora", 20, "Entrada", 15, 10,(new Receita(despensa, "50g de queijo camembert, 1 molho de folhas mix, 50g de amoras" )));
-		Item item5 = new Item ("Carpaccio de File Mignon com Azeite e Grana Padano", 32.50, "Entrada", 25, 8,(new Receita(despensa, "100g de filé mignon, 30g de queijo grana padano, 100g de crostine, 1 molho de rúcula " )));
-		
-		Item item6 = new Item ("Salada Caprese", 20, "Saladas", 15, 9,(new Receita(despensa, "1 tomate italiano, 2 mozarela de búfala, 1 molho de manjericão, 30g de queijo grana padano, 2 molhos de folhas mix" )));
-		Item item7 = new Item ("Salada de Folhas, Queijos e Figos Secos", 17, "Saladas", 13, 8,(new Receita(despensa, "1 molho de alface mimosa, 1 molho de rúcula, 30g de queijo grana padano, 10g de nozes, 20g de figos secos, 1 mozarela de búfala" )));
-		Item item8 = new Item ("Salada de Rúculas Novas", 13, "Saladas", 10, 8,(new Receita(despensa, "2 molhos de rúcula, 1 porção de confit de cebola roxa, 30g de queijo brie, 10g de nozes " )));
-	
-		Item item9 = new Item ("Chinesa ", 13, "Sopas", 10, 15,(new Receita(despensa, "100g de missô, 100g de pernil suíno, 50g de champignon, 1 cenoura, 1 molho de acelga, 100g de macarrão" )));
-		Item item10 = new Item ("Finlandesa ", 11, "Sopas", 8, 11,(new Receita(despensa, "1 porção de couve-flor, 1 batata, 1 cenoura, 50g de ervilha, 100g de vagem, 100ml de creme de mesa" )));
-		Item item11 = new Item ("Sopa de cenoura", 6.5, "Sopas", 5, 5,(new Receita(despensa, "250ml de caldo de cenoura " )));
-		Item item12 = new Item ("Sopa de Batata Salsa ", 10, "Sopas", 7, 10,(new Receita(despensa, "2 batatas salsa, 250ml de caldo de carne" )));
-	
-		Item item13 = new Item ("Costelinha da Sinhá", 71.50, "Pratos Principais", 55, 20,(new Receita(despensa, "200g de costela de porco, 100g de arroz, 100g de feijão, 1 mandioca, 1 molho de couve" )));
-		Item item14 = new Item ("Mexidão Metido a Besta", 78, "Pratos Principais", 60, 13,(new Receita(despensa, "150g de arroz, 150g de feijão, 200g de file mignon" )));
-		Item item15 = new Item ("Lombo Assado da Panela", 58.5, "Pratos Principais", 45, 20,(new Receita(despensa, "150g de arroz, 150g de feijão, 50g de farinha de mandioca, 1 molho de couve, 2 batatas" )));
-		Item item16 = new Item ("Frango Jeca", 52, "Pratos Principais", 40, 17,(new Receita(despensa, "2 sobrecoxas de frango, 100ml de creme de leite, 100g de milho verde" )));
-		Item item17 = new Item ("Frango com Quiabo", 65, "Pratos Principais", 50, 14,(new Receita(despensa, "2 sobrecoxas de frango, 2 coxinhas de asa, 150g de arroz, 150g de feijão, 100g de fubá de milho, 1 porção de quiabo, 1 molho de couve, 1 chuchu" )));
-		Item item18 = new Item ("Filé Grelhado com Penne Rigatte e Molho de queijo", 63, "Pratos Principais", 48, 10,(new Receita(despensa, "150g de filé mignon, 200g de penne, 100g de queijo gruyere, 100ml de nata, 50g de queijo grana padano" )));
-		Item item19 = new Item ("Entrecot Premium com Batatas Perfumadas", 75.5, "Pratos Principais", 58, 12,(new Receita(despensa, "350g de filé da costela, 3 batatas" )));
-		Item item20 = new Item ("Carreteiro de Perdiz com Arroz Negro e Manteiga de Foie Gras", 91, "Pratos Principais", 70, 17,(new Receita(despensa, "150g de arroz negro, 1 perdiz, 1 linguiça calabresa, 100ml de cachaça, 50g de manteiga de foie gras " )));
-		Item item21 = new Item ("Robalo Oliva e Ervas", 78, "Pratos Principais", 60, 15,(new Receita(despensa, "1 filé de robalo, 2 cenouras, 3 batatas doces" )));
-		
-		
-		Item item22 = new Item ("Doce de abóbora com coco", 10.5, "Sobremesas ", 8, 6,(new Receita(despensa, "1 abóbora, 100g de coco, 50g de açúcar" )));
-		Item item23 = new Item ("Torta da Tia Vilica", 65, "Sobremesas ", 15, 10,(new Receita(despensa, "50g de margarina, 80g de açúcar, 100ml de creme de leite, 20 ml de leite condensado, 100g de biscoito maizena, 50g de chocolate" )));
-		Item item24 = new Item ("Petit Gateau de Chocolate", 13, "Sobremesas ", 10, 7,(new Receita(despensa, "100g de chocolate, 50g de farinha de trigo, 100ml de sorvete de creme" )));
-		Item item25 = new Item ("Torta Tiramissu", 16, "Sobremesas ", 12, 8,(new Receita(despensa, "200g de biscoito champagne, 100ml de café, 100g de queijo mascarpone, 50g de cacau" )));
-		Item item26 = new Item ("Sorvete de Creme com Calda de Chocolate", 11, "Sobremesas ", 8, 2,(new Receita(despensa, "100ml de sorvete de creme, 50g de chocolateo amargo, 30g de castanha" )));
-		
-		
-		Item item27 = new Item ("Limonada refrescante", 9, "Bebidas", 13, 0,(new Receita(despensa, "3 limões, 50ml de leite" )));
-		Item item28 = new Item ("Suco de abacaxi com gengibre" , 8, "Bebidas", 13, 0,(new Receita(despensa, "1 abacaxi, 30g de gengibre" )));
-		Item item29 = new Item ("Água com gás ", 3.50, "Bebidas", 13, 0,(new Receita(despensa, "" )));
-		Item item30 = new Item ("Água tônica", 5, "Bebidas", 13, 0,(new Receita(despensa, "" )));
-		Item item31 = new Item ("Cerveja", 7, "Bebidas", 13, 0,(new Receita(despensa, "" )));
-		Item item32 = new Item ("Refrigerante ", 5, "Bebidas", 13, 0,(new Receita(despensa, "" )));
-		Item item33 = new Item ("Vinho tinto", 10, "Bebidas", 13, 0,(new Receita(despensa, "" )));
-		Item item34 = new Item ("Vinho branco", 10, "Bebidas", 13, 0,(new Receita(despensa, "" )));
-		Item item35 = new Item ("Espumante ", 15, "Bebidas", 13, 0,(new Receita(despensa, "" )));
+		Item item1 = new Item ("Linguica com Cebola", 17, "Entrada", 13, 10, (new Receita (despensa, "1 cebola, 2 linguiças, 2 pães")));
+		Item item2 = new Item ("Jiló com queijo", 12, "Entrada", 9, 12, (new Receita (despensa, "5 jilós, 50g de queijo canastra, 2 pães")));
+		Item item3 = new Item ("Camarões Médios de Cativeiro", 26, "Entrada", 20, 13, (new Receita (despensa, "6 camarões médios, 1 molho de folhas verdes")));
+		Item item4 = new Item ("Camembert Empanado, Mix de Folhas e Coulie de Amora", 20, "Entrada", 15, 10, (new Receita (despensa, "50g de queijo camembert, 1 molho de folhas mix, 50g de amoras")));
+		Item item5 = new Item ("Carpaccio de File Mignon com Azeite e Grana Padano", 32.50, "Entrada", 25, 8, (new Receita (despensa, "100g de filé mignon, 30g de queijo grana padano, 100g de crostine, 1 molho de rúcula ")));
+
+		Item item6 = new Item ("Salada Caprese", 20, "Saladas", 15, 9, (new Receita (despensa, "1 tomate italiano, 2 mozarela de búfala, 1 molho de manjericão, 30g de queijo grana padano, 2 molhos de folhas mix")));
+		Item item7 = new Item ("Salada de Folhas, Queijos e Figos Secos", 17, "Saladas", 13, 8, (new Receita (despensa, "1 molho de alface mimosa, 1 molho de rúcula, 30g de queijo grana padano, 10g de nozes, 20g de figos secos, 1 mozarela de búfala")));
+		Item item8 = new Item ("Salada de Rúculas Novas", 13, "Saladas", 10, 8, (new Receita (despensa, "2 molhos de rúcula, 1 porção de confit de cebola roxa, 30g de queijo brie, 10g de nozes ")));
+
+		Item item9 = new Item ("Chinesa ", 13, "Sopas", 10, 15, (new Receita (despensa, "100g de missô, 100g de pernil suíno, 50g de champignon, 1 cenoura, 1 molho de acelga, 100g de macarrão")));
+		Item item10 = new Item ("Finlandesa ", 11, "Sopas", 8, 11, (new Receita (despensa, "1 porção de couve-flor, 1 batata, 1 cenoura, 50g de ervilha, 100g de vagem, 100ml de creme de mesa")));
+		Item item11 = new Item ("Sopa de cenoura", 6.5, "Sopas", 5, 5, (new Receita (despensa, "250ml de caldo de cenoura ")));
+		Item item12 = new Item ("Sopa de Batata Salsa ", 10, "Sopas", 7, 10, (new Receita (despensa, "2 batatas salsa, 250ml de caldo de carne")));
+
+		Item item13 = new Item ("Costelinha da Sinhá", 71.50, "Pratos Principais", 55, 20, (new Receita (despensa, "200g de costela de porco, 100g de arroz, 100g de feijão, 1 mandioca, 1 molho de couve")));
+		Item item14 = new Item ("Mexidão Metido a Besta", 78, "Pratos Principais", 60, 13, (new Receita (despensa, "150g de arroz, 150g de feijão, 200g de file mignon")));
+		Item item15 = new Item ("Lombo Assado da Panela", 58.5, "Pratos Principais", 45, 20, (new Receita (despensa, "150g de arroz, 150g de feijão, 50g de farinha de mandioca, 1 molho de couve, 2 batatas")));
+		Item item16 = new Item ("Frango Jeca", 52, "Pratos Principais", 40, 17, (new Receita (despensa, "2 sobrecoxas de frango, 100ml de creme de leite, 100g de milho verde")));
+		Item item17 = new Item ("Frango com Quiabo", 65, "Pratos Principais", 50, 14, (new Receita (despensa, "2 sobrecoxas de frango, 2 coxinhas de asa, 150g de arroz, 150g de feijão, 100g de fubá de milho, 1 porção de quiabo, 1 molho de couve, 1 chuchu")));
+		Item item18 = new Item ("Filé Grelhado com Penne Rigatte e Molho de queijo", 63, "Pratos Principais", 48, 10, (new Receita (despensa, "150g de filé mignon, 200g de penne, 100g de queijo gruyere, 100ml de nata, 50g de queijo grana padano")));
+		Item item19 = new Item ("Entrecot Premium com Batatas Perfumadas", 75.5, "Pratos Principais", 58, 12, (new Receita (despensa, "350g de filé da costela, 3 batatas")));
+		Item item20 = new Item ("Carreteiro de Perdiz com Arroz Negro e Manteiga de Foie Gras", 91, "Pratos Principais", 70, 17, (new Receita (despensa, "150g de arroz negro, 1 perdiz, 1 linguiça calabresa, 100ml de cachaça, 50g de manteiga de foie gras ")));
+		Item item21 = new Item ("Robalo Oliva e Ervas", 78, "Pratos Principais", 60, 15, (new Receita (despensa, "1 filé de robalo, 2 cenouras, 3 batatas doces")));
+
+		Item item22 = new Item ("Doce de abóbora com coco", 10.5, "Sobremesas ", 8, 6, (new Receita (despensa, "1 abóbora, 100g de coco, 50g de açúcar")));
+		Item item23 = new Item ("Torta da Tia Vilica", 65, "Sobremesas ", 15, 10, (new Receita (despensa, "50g de margarina, 80g de açúcar, 100ml de creme de leite, 20 ml de leite condensado, 100g de biscoito maizena, 50g de chocolate")));
+		Item item24 = new Item ("Petit Gateau de Chocolate", 13, "Sobremesas ", 10, 7, (new Receita (despensa, "100g de chocolate, 50g de farinha de trigo, 100ml de sorvete de creme")));
+		Item item25 = new Item ("Torta Tiramissu", 16, "Sobremesas ", 12, 8, (new Receita (despensa, "200g de biscoito champagne, 100ml de café, 100g de queijo mascarpone, 50g de cacau")));
+		Item item26 = new Item ("Sorvete de Creme com Calda de Chocolate", 11, "Sobremesas ", 8, 2, (new Receita (despensa, "100ml de sorvete de creme, 50g de chocolateo amargo, 30g de castanha")));
+
+		Item item27 = new Item ("Limonada refrescante", 9, "Bebidas", 13, 0, (new Receita (despensa, "3 limões, 50ml de leite")));
+		Item item28 = new Item ("Suco de abacaxi com gengibre", 8, "Bebidas", 13, 0, (new Receita (despensa, "1 abacaxi, 30g de gengibre")));
+		Item item29 = new Item ("Água com gás ", 3.50, "Bebidas", 13, 0, (new Receita (despensa, "")));
+		Item item30 = new Item ("Água tônica", 5, "Bebidas", 13, 0, (new Receita (despensa, "")));
+		Item item31 = new Item ("Cerveja", 7, "Bebidas", 13, 0, (new Receita (despensa, "")));
+		Item item32 = new Item ("Refrigerante ", 5, "Bebidas", 13, 0, (new Receita (despensa, "")));
+		Item item33 = new Item ("Vinho tinto", 10, "Bebidas", 13, 0, (new Receita (despensa, "")));
+		Item item34 = new Item ("Vinho branco", 10, "Bebidas", 13, 0, (new Receita (despensa, "")));
+		Item item35 = new Item ("Espumante ", 15, "Bebidas", 13, 0, (new Receita (despensa, "")));
+
+		cardapio.add (item1);
+		cardapio.add (item2);
+		cardapio.add (item3);
+		cardapio.add (item4);
+		cardapio.add (item5);
+		cardapio.add (item6);
+		cardapio.add (item7);
+		cardapio.add (item8);
+		cardapio.add (item9);
+		cardapio.add (item10);
+		cardapio.add (item11);
+		cardapio.add (item12);
+		cardapio.add (item13);
+		cardapio.add (item14);
+		cardapio.add (item15);
+		cardapio.add (item16);
+		cardapio.add (item17);
+		cardapio.add (item18);
+		cardapio.add (item19);
+		cardapio.add (item20);
+		cardapio.add (item21);
+		cardapio.add (item22);
+		cardapio.add (item23);
+		cardapio.add (item24);
+		cardapio.add (item25);
+		cardapio.add (item26);
+		cardapio.add (item27);
+		cardapio.add (item28);
+		cardapio.add (item29);
+		cardapio.add (item30);
+		cardapio.add (item31);
+		cardapio.add (item32);
+		cardapio.add (item33);
+		cardapio.add (item34);
+		cardapio.add (item35);
+
+		salarios.put ("Garcom", new Salario ((double) 200, (double) 7));
+		salarios.put ("Atendente", new Salario ((double) 150, (double) 1));
+		salarios.put ("Cozinheiro", new Salario ((double) 350, (double) 5));
+		salarios.put ("AuxiliarCozinha", new Salario ((double) 100, (double) 3));
+		salarios.put ("Gerente", new Salario ((double) 300, (double) 3));
 	}
 }

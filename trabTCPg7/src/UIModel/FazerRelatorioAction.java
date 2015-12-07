@@ -27,9 +27,10 @@ public class FazerRelatorioAction extends UIAction
 		}
 		else
 		{
-			System.out.println("\n >>--- Turnos encerrados ---<< \n");
-			for (int i = 0; i < listaTurnos.size(); i++) {
-				System.out.println("> Codigo do turno: "+listaTurnos.get(i).getTurnoCod() );
+			System.out.println ("\n >>--- Turnos encerrados ---<< \n");
+			for (int i = 0; i < listaTurnos.size (); i++)
+			{
+				System.out.println ("> Codigo do turno: " + listaTurnos.get (i).getTurnoCod ());
 			}
 			System.out.print ("> Escolha o turno desejado (código do turno)");
 			String turnoDesejado = someInput.next ();

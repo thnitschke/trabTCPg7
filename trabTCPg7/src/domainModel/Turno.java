@@ -35,7 +35,7 @@ public class Turno
 	private HashMap< Garcom, Setor > garcomSetor;
 	private ArrayList< Pedido > pedidos;
 	private HashMap< Funcionario, Double > gorjetas;
-	
+
 	Random number = new Random ();
 
 	/**
@@ -45,7 +45,7 @@ public class Turno
 	 */
 	public Turno ()
 	{
-		turnoCod = "T"+number.nextInt(1000000000);
+		turnoCod = "T" + number.nextInt (1000000000);
 		custo = 0;
 		lucro = 0;
 		garcomSetor = new HashMap< Garcom, Setor > ();
@@ -103,7 +103,7 @@ public class Turno
 	 */
 	public Setor getSetor (Garcom garcom)
 	{
-		return garcomSetor.get(garcom);
+		return garcomSetor.get (garcom);
 	}
 
 	/**
@@ -229,7 +229,7 @@ public class Turno
 		for (Iterator< Funcionario > iterator = todosFuncionarios.iterator (); iterator.hasNext ();)
 		{
 			Funcionario funcionario = (Funcionario) iterator.next ();
-			salario = todosSalarios.get (funcionario.getID());
+			salario = todosSalarios.get (funcionario.getClass ().getSimpleName ());
 
 			if (gorjetas.containsKey (funcionario))
 			{

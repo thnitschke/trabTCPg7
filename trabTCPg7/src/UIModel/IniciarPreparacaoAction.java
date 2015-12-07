@@ -20,10 +20,13 @@ public class IniciarPreparacaoAction extends UIAction
 	@Override public void execute ()
 	{
 		ArrayList< Pedido > pedidosPendentes = operationService.getPedidosPendentes ();
-		if (pedidosPendentes.isEmpty()){
-			System.out.println("Não há pedidos para iniciar...");
-		} else{
-		
+		if (pedidosPendentes.isEmpty ())
+		{
+			System.out.println ("Não há pedidos para iniciar...");
+		}
+		else
+		{
+
 			System.out.println ("Lista de pedidos pendentes, favor escolher pedido e inserir seu código abaixo:");
 			for (Iterator< Pedido > iterator = pedidosPendentes.iterator (); iterator.hasNext ();)
 			{
@@ -43,16 +46,16 @@ public class IniciarPreparacaoAction extends UIAction
 					else
 						continue;
 				}
-			if (pedidoAserPreparado != null)
-				break;
-			else
-			{
-				System.out.println ("Nenhum pedido a ser preparado com este código de pedido existe. Favor inserir novamente.");
-				continue;
+				if (pedidoAserPreparado != null)
+					break;
+				else
+				{
+					System.out.println ("Nenhum pedido a ser preparado com este código de pedido existe. Favor inserir novamente.");
+					continue;
+				}
 			}
-		}
 
-		operationService.prepararItens (pedidoAserPreparado, pedidoAserPreparado.getListItems ());
-	}
+			operationService.prepararItens (pedidoAserPreparado, pedidoAserPreparado.getListItems ());
 		}
+	}
 }
